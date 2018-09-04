@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Readme -- Chapter 8 Sample</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+proctitle,
+relatedtopics {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+h1 {
+	font-size: 135%;
+	margin-top: .5em;
+	margin-bottom: .5em;
+}
+h2 {
+	font-size: 125%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+h3 {
+	font-size: 110%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+h4 {
+	font-size: 105%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+h5 {
+	font-size: 100%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+body {
+	padding: 0px 0px 0px 15px;
+	background: #ffffff;
+	color: #00000;
+	font-size: 80%;
+}
+table {
+	width: 90%;
+	margin-top: .6em;
+	margin-bottom: .3em;
+}
+th {
+	padding-left: 8px;
+	padding-right: 8px;
+	background: #cccccc;
+	text-align: left;
+	font-size: 70%;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	vertical-align: bottom;
+}
+td {
+	padding-left: 8px;
+	padding-right: 8px;
+	background: #ffffff;
+	vertical-align: top;
+	font-size: 70%;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+ul,
+ol {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	list-style-position: outside;
+	list-style-image: none;
+	margin-top: 0em;
+	margin-bottom: 0em;
+}
+ol {
+	list-style-type: 1;
+	margin-left: 2em;
+}
+ul {
+	list-style-type: disc;
+	margin-left: 1.5em;
+}
+li {
+	margin-top: 1.3em; 
+	margin-bottom: 0em;
+}
+</style>
+</head>
+
+<body>
+<h1>Setting Up and Running the Chapter 8 OnlineStore Web Service</h1>
+<p>This file contains instructions for setting up support for the OnlineStore 
+  web service described in Chapter 8. Because this service uses Enterprise Java 
+  Beans (EJBs) and JMS queues, you must add those resources to the samples domain 
+  before attempting to run the service. These instructions assume you are using 
+  the samples server installed with WebLogic Workshop.</p>
+<p>Note that these instructions are very similar to those used for setting up 
+  the Chapter 10 sample. However, the two samples have different JMS queues and 
+  different versions of the CreditCheck bean (to avoid conflicts inherent in having 
+  two components listening on the same queue).</p>
+<h2>Create database tables needed by the Inventory entity bean</h2>
+<p>As an entity bean, the Inventory EJB interacts with clients by representing 
+  data in a database. Before you can deploy the bean itself, the database table 
+  must exist on the server.</p>
+<ol>
+  <li>Start the WebLogic Server domain used by WebLogic Workshop samples.</li>
+  <li>Click the <strong>Start</strong> menu -&gt; <strong>Programs</strong> -&gt; 
+    <strong>WebLogic Platform 7.0</strong> -&gt; <strong>WebLogic Workshop</strong> 
+    -&gt; <strong>WebLogic Workshop Examples</strong> -&gt; <strong>Start Examples 
+    Server</strong>
+    <p>Once WebLogic Server is running, start the PointBase console as follows.</p>
+  </li>
+  <li>Click the <strong>Start</strong> menu -&gt; <strong>Programs</strong> -&gt; 
+    <strong>WebLogic Platform 7.0</strong> -&gt; <strong>WebLogic Workshop</strong> 
+    -&gt; <strong>WebLogic Workshop Examples</strong> -&gt; <strong>PointBase 
+    Console</strong></li>
+  <li>When prompted to log in to the console, use the following values: 
+    <ul>
+      <li>Driver: <strong>com.pointbase.jdbc.jdbcUniversalDriver</strong></li>
+      <li>URL: <strong>jdbc:pointbase:server://localhost:9093/cajun</strong></li>
+      <li>User: <strong>cajun</strong></li>
+      <li>Password: <strong>abc</strong></li>
+    </ul>
+  </li>
+  <li>In the PointBase console, enter the following SQL command, then click the 
+    Execute button: 
+    <pre>CREATE TABLE items (
+  name VARCHAR(255),
+  code INT IDENTITY,
+  price DOUBLE PRECISION);</pre>
+    <p>This creates the &quot;items&quot; table needed by the Inventory bean.</p>
+  </li>
+  <li>In the PointBase console, click the <strong>File</strong> menu, then click 
+    <strong>Import</strong>.</li>
+  <li>Under <strong>Pick Table to Import Into</strong>, select <strong>CAJUN.ITEMS</strong>, 
+    then click <strong>OK</strong>.</li>
+  <li>In the Import Data dialog, browse to the items.txt file provided in the 
+    database folder with this sample.</li>
+  <li>When the path to items.txt appears in the <strong>Source URL</strong> box, 
+    click <strong>OK</strong>. 
+    <p>A dialog should confirm a successful import of the data in the file. To 
+      view the data you imported, enter the following command under <strong>Enter 
+      SQL Commands</strong> in the console, the click the Execute button.</p>
+    <pre>select * from items;</pre>
+    <p>Once you have created the table and imported the data, close the PointBase 
+      console.</p>
+  </li>
+  <li>Stop WebLogic Server by closing the console (command prompt) windows that 
+    opened when it started.</li>
+</ol>
+<h2>Add JMS queues</h2>
+<p>The OnlineStore web service features a JMS control that sends and receives 
+  message via two JMS queues. This procedure describes how you can add those queues 
+  by editing the config.xml file.</p>
+<ol>
+  <li>Open the config.xml file that contains configuration settings for the samples 
+    domain. 
+    <p>By default, this file is located at &lt;bea_home&gt;\weblogic700\samples\workshop\config.xml.</p>
+  </li>
+  <li>In this XML file, find the element that contains configuration for JMS queues 
+    and topics. 
+    <p>This element usually starts like this:</p>
+    <pre>&lt;JMSServer Name=&quot;cgJMSServer&quot; Store=&quot;cgJDBCStore&quot; Targets=&quot;cgServer&quot;&gt;</pre>
+  </li>
+  <li>Add the two JMS queues required by the JMS control. To do this, copy the 
+    following two configuration entries and paste them into the config.xml file 
+    for the WebLogic Server domain in which you're running the web service. These 
+    should go between the start and end tags of the &lt;JMSServer&gt; element, 
+    along with the other JMS targets there. 
+    <pre>&lt;JMSQueue JNDIName=&quot;credit.ratingQ&quot; Name=&quot;credit.ratingQ&quot; 
+  RedeliveryLimit=&quot;2&quot; StoreEnabled=&quot;default&quot;/&gt;
+&lt;JMSQueue JNDIName=&quot;credit.requestQ&quot; Name=&quot;credit.requestQ&quot; 
+  RedeliveryLimit=&quot;2&quot; StoreEnabled=&quot;default&quot;/&gt;</pre>
+  </li>
+  <li> Save and close the config.xml file.</li>
+  <li>Start WebLogic Server as you did previously.</li>
+</ol>
+<h2>Deploy the Inventory and CreditRating EJBs</h2>
+<ol>
+  <li>Locate the CreditCheck_08.jar and Inventory.jar files provided with this 
+    sample.</li>
+  <li>Copy these files to the applications folder of the samples domain. 
+    <p>By default, this folder is located at &lt;bea_home&gt;\weblogic700\samples\workshop\applications</p>
+  </li>
+</ol>
+<p>This should automatically deploy the entity bean used by the web service's 
+  EJB control and the message-driven bean accessed through JMS queues via the 
+  JMS control.</p>
+<h2>Run the OnlineStore web service</h2>
+<p>The following steps describe how you can quickly run through a test of the 
+  web service.</p>
+<ol>
+  <li>Start WebLogic Workshop and open the OnlineStore.jws file.</li>
+  <li>Ensure that WebLogic Server is running, then press F5 to start the web service.</li>
+  <li>When Test View appears, enter a name in the <strong>name</strong> box (such 
+    as &quot;Joe&quot;), and a number in the <strong>customerNumber</strong> box 
+    (such as &quot;42&quot;).</li>
+  <li>Click <strong>Start Shopping</strong>.</li>
+  <li>After Test View refreshes, click <strong>Continue this conversation</strong>.</li>
+  <li>After Test View refreshes, click <strong>viewCatalog</strong>.</li>
+  <li>After Test View refreshes, click <strong>Continue this conversation</strong>.</li>
+  <li>After Test View refreshes, enter 0, 1, 2, 3, or 4 in the code box under 
+    <strong>addItem</strong>, then click the <strong>addItem</strong> button.</li>
+  <li>After Test View refreshes, click <strong>Continue this conversation</strong>.</li>
+  <li>After Test View refreshes, click <strong>viewCart</strong> to see what you've 
+    ordered so far.</li>
+  <li>After Test View refreshes, click <strong>Continue this conversation</strong>.</li>
+  <li>After Test View refreshes, click <strong>checkout</strong> to purchase your 
+    item.</li>
+  <li>After Test View refreshes, click <strong>Refresh</strong> until <strong>callback.onPurchaseApproved</strong> 
+    appears in the Message Log.</li>
+  <li>Click <strong>callback.onPurchaseApproved</strong> to view the outcome of 
+    your purchase.</li>
+</ol>
+<p>&nbsp;</p>
+</body>
+</html>

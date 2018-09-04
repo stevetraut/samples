@@ -1,0 +1,15 @@
+package Chapter08; 
+
+import weblogic.jws.*; 
+import weblogic.jws.control.*; 
+
+/**
+ *   @jws:ejb home-jndi-name="InventoryHomeRemote"
+ *   @editor-info:ejb home="OnlineStore.jar" bean="OnlineStore.jar"
+ */
+public interface InventoryControl 
+        extends com.onlinestore.inventory.InventoryHomeRemote,    // home interface
+                com.onlinestore.inventory.InventoryRemote,    // bean interface
+                weblogic.jws.control.SessionEJBControl     // control interface
+{ 
+} 

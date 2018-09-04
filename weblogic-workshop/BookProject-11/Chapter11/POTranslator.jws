@@ -1,0 +1,79 @@
+package Chapter11; 
+
+import weblogic.jws.control.JwsContext;
+
+public class POTranslator
+{ 
+    /** @jws:context */ 
+    JwsContext context; 
+
+    public static class PurchaseOrder
+    {
+        public PurchaseOrder() {}
+        
+        public String orderNumber;
+        public Address shippingAddr;
+        public Address billingAddr;
+        public Item[] items;
+    }
+    
+    public static class Address
+    {
+        public Address() {}
+     
+        public String name;
+        public String street;
+        public String city;
+        public String state;
+        public String zip;
+    }
+    
+    public static class Item
+    {
+        public Item() {}
+        
+        public String name;
+        public double price;
+        public int quantity; 
+    }
+
+    /**
+     * @jws:operation
+     * @jws:parameter-xml xml-map::
+     *     <purchaseOrder xmlns="http://www.wiley.com/">
+     *         {Chapter11.POMaps.translatePurchaseOrder(shippingAddr, billingAddr, poNumber, items)}
+     *     </purchaseOrder>
+     * ::
+     * 
+     * @jws:return-xml xml-map::
+     *     <purchaseOrderReturn xmlns="http://www.wiley.com/">
+     *         {Chapter11.POMaps.translatePurchaseOrder(return)}
+     *     </purchaseOrderReturn>
+     * ::
+     */
+    public PurchaseOrder submitOrder(Address shippingAddr, Address billingAddr, String poNumber, Item[] items)
+    {
+        /* 
+         * Declare a PurchaseOrder variable and add the
+         * data from incoming parameter values to it. Note
+         * that the incoming data has been translated from
+         * the XML message sent by the client. The parameter
+         * XML map, along with the JavaScript function it 
+         * calls, has parsed values from the XML message
+         * into the Java parameters of this method.
+         */
+        PurchaseOrder po = new PurchaseOrder();
+
+        po.shippingAddr = shippingAddr;
+        po.billingAddr = billingAddr;
+        po.items = items;
+        po.orderNumber = poNumber;
+
+        /* 
+         * Return the new PurchaseOrder object. From here,
+         * it will be translated via the return XML map and
+         * the JavaScript function called by the map.
+         */        
+        return po;
+    }
+}

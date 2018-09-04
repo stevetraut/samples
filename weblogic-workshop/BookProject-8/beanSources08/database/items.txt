@@ -1,0 +1,5 @@
+"Blue Widget", 0, 2.75
+"Red Widget", 1, 5.75 
+"Green Widget", 2, 7.15 
+"Yellow Widget", 3, 1.50 
+"Orange Widget", 4, 3.25

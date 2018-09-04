@@ -1,0 +1,116 @@
+h1,
+h2,
+h3,
+h4 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin-left: 0px;
+}
+
+h1 {
+	font-size: 145%;
+	margin-top: .5em;
+	margin-bottom: .5em;
+}
+
+h2 {
+	font-size: 130%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+
+h3 {
+	font-size: 120%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+
+h4 {
+	font-size: 115%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+
+h5 {
+	font-size: 100%;
+	margin-top: 1em;
+	margin-bottom: .6em;
+}
+
+p {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	padding: 0px 0px 0px 26px;
+	background: #ffffff;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 80%;
+}
+
+table {
+	margin-top: .6em;
+	margin-bottom: .3em;
+}
+
+th {
+	padding: 1px 8px;
+	background: #cccccc;
+	text-align: left;
+	font-size: 70%;
+	vertical-align: bottom;
+}
+
+td {
+	padding-left: 8px;
+	padding-right: 8px;
+	background: #ffffff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 80%;
+	vertical-align: top;
+	font-size: 70%;
+}
+
+ul,
+ol {
+	list-style-position: outside;
+	margin-top: .6em;
+	margin-bottom: 0em;
+}
+
+ol {
+	list-style-type: 1;
+	margin-left: 2.1em;
+}
+
+ul {
+	list-style-type: disc;
+	margin-left: 1.4em;
+}
+
+li {
+	margin-bottom: .6em;
+}
+
+a:link {
+	color: #0066ff;
+}
+
+a:hover {
+	x-text-underline: normal;
+	/*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ 
+}
+
+a:active {
+	x-text-underline: normal;
+	/*begin!kadov{{*/ text-decoration: underline; /*}}end!kadov*/ 
+}
+
+a:visited {
+	color: #996600;
+}
+
+a {
+	x-text-underline: off;
+	x-text-overline: off;
+	x-text-line-through: off;
+	/*begin!kadov{{*/ text-decoration: none none none; /*}}end!kadov*/ 
+}

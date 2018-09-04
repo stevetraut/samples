@@ -1,0 +1,40 @@
+<!DOCTYPE weblogic-ejb-jar PUBLIC '-//BEA Systems, Inc.//DTD WebLogic 7.0.0 EJB//EN' 'http://www.bea.com/servers/wls700/dtd/weblogic-ejb-jar.dtd'>
+<!-- Generated XML! -->
+<weblogic-ejb-jar>
+	<weblogic-enterprise-bean>
+		<ejb-name>ItemEJB</ejb-name>
+		<entity-descriptor>
+			<pool/>
+			<entity-cache>
+				<max-beans-in-cache>100</max-beans-in-cache>
+				<cache-between-transactions>False</cache-between-transactions>
+			</entity-cache>
+			<persistence>
+				<persistence-use>
+					<type-identifier>WebLogic_CMP_RDBMS</type-identifier>
+					<type-version>6.0</type-version>
+					<type-storage>META-INF/weblogic-cmp-rdbms-jar.xml</type-storage>
+				</persistence-use>
+			</persistence>
+			<entity-clustering/>
+		</entity-descriptor>
+		<transaction-descriptor/>
+		<jndi-name>ItemHomeRemote</jndi-name>
+	</weblogic-enterprise-bean>
+	<weblogic-enterprise-bean>
+		<ejb-name>InventoryEJB</ejb-name>
+		<transaction-descriptor/>
+		<reference-descriptor>
+			<ejb-reference-description>
+				<ejb-ref-name>ejb/ItemHomeRemote</ejb-ref-name>
+				<jndi-name>ItemHomeRemote</jndi-name>
+			</ejb-reference-description>
+		</reference-descriptor>
+		<jndi-name>InventoryHomeRemote</jndi-name>
+	</weblogic-enterprise-bean>
+	<security-role-assignment>
+		<role-name>everyone</role-name>
+		<principal-name>guest</principal-name>
+		<principal-name>system</principal-name>
+	</security-role-assignment>
+</weblogic-ejb-jar>

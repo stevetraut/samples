@@ -1,0 +1,131 @@
+package Chapter10;
+
+import weblogic.jws.control.JwsContext;
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.onlinestore.item.Item;
+import weblogic.jws.control.TimerControl;
+
+import java.util.Vector;
+import Chapter10.OnlineStoreControl;
+
+public class OnlineStorePoll
+{
+
+
+    /**
+     * @jws:control
+     */
+    private OnlineStoreControl onlineStoreControl;
+
+    /** @jws:context */ 
+    JwsContext context; 
+    
+    /** 
+     * A string to store the message that will
+     * be sent back to the client.
+     */
+    private String m_message;
+
+    /* 
+     * The list of items that the client was approved
+     * to purchase
+     */
+    private Item[] m_itemsPurchased;
+    
+    /*
+     * A flag to set when the transaction is finished.
+     */
+    private boolean m_isComplete = false;
+
+    /**
+     * @jws:operation 
+     * @jws:conversation phase="start"
+     */
+    public String startShopping(String name, String customerNumber)
+    {
+        return onlineStoreControl.startShopping(name, customerNumber);
+    }
+    
+    /** 
+     * @jws:operation
+     * @jws:conversation phase="continue"
+     */
+    public Item[] viewCatalog() throws Exception
+    {
+        return onlineStoreControl.viewCatalog();
+    }
+    
+    /**
+     * @jws:operation 
+     * @jws:conversation phase="continue"
+     */
+    public void addItem(Integer code)
+    {
+        onlineStoreControl.addItem(code.intValue());
+    }
+
+    /**
+     * @jws:operation 
+     * @jws:conversation phase="continue"
+     */
+    public void removeItem(int index)
+    {
+        onlineStoreControl.removeItem(index);
+    }
+    
+    /**
+     * @jws:operation
+     * @jws:conversation phase="continue"
+     */
+    public Item[] viewCart()
+    {
+        return onlineStoreControl.viewCart();
+    }
+
+    /**
+     * @jws:operation
+     * @jws:conversation phase="continue"
+     */
+    public void checkout()
+    {
+        onlineStoreControl.checkout();
+    }
+
+    private void onlineStoreControl_onPurchaseApproved(java.lang.String message, 
+        Item[] itemsPurchased)
+    {
+        m_message = message;
+        m_itemsPurchased = itemsPurchased;
+        
+        m_isComplete = true;
+    }
+
+    /**
+     * @jws:operation
+     * @jws:conversation phase="continue"
+     */
+    public boolean isPurchaseComplete()
+    {
+        return m_isComplete;
+    }
+
+    /**
+     * @jws:operation
+     * @jws:conversation phase="finish"
+     */
+    public Item[] getResults()
+    {
+        Object[] items = new Object[m_itemsPurchased.length];
+        for (int i = 0; i < m_itemsPurchased.length; i++) {
+            Object[] item = new Object[3];
+            item[0] = m_itemsPurchased[i].getCode();
+            item[1] = m_itemsPurchased[i].getName();
+            item[2] = m_itemsPurchased[i].getPrice();                
+            items[i] = item;
+        }
+        return m_itemsPurchased;
+    }
+
+
+}

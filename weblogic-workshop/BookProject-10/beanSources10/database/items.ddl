@@ -1,0 +1,6 @@
+DROP TABLE items;
+CREATE TABLE items (
+	name VARCHAR(255),
+	code INT IDENTITY, 
+	price DOUBLE PRECISION
+);

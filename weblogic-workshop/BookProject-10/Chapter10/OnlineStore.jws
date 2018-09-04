@@ -1,0 +1,175 @@
+package Chapter10;
+
+import weblogic.jws.control.JwsContext;
+import java.util.ArrayList;
+import com.onlinestore.item.Item;
+
+public class OnlineStore
+{
+    public Callback callback;
+
+    public interface Callback
+    {
+        /**
+         * @jws:conversation phase="finish"
+         */
+        public void onPurchaseApproved(String message, 
+            Item[] itemsPurchased);
+    }
+
+    /**
+     * @jws:control
+     */
+    private CreditCheckControl creditCheckJMS;
+
+    /**
+     * @jws:control
+     */
+    private InventoryControl inventoryEJB;
+    
+    /** @jws:context */ 
+    JwsContext context; 
+    
+    /** The name of the customer. */
+    private String name;
+    
+    /* A list of items that represents the shopping 
+     * cart. */
+    private ArrayList shoppingCart;
+    
+    /* A variable to hold the item list received from 
+     * the inventory bean. */
+    private Item[] catalog;
+
+    /* The customer's ID, to be used when requesting 
+     * credit approval. */    
+    private String customerID;
+
+    /**
+     * @jws:operation 
+     * @jws:conversation phase="start"
+     */
+    public String startShopping(String name, String customerNumber)
+    {
+        customerID = customerNumber;
+        this.name         = name;
+        this.shoppingCart = new ArrayList();
+        
+        return "Welcome, " + name;
+    }
+    
+    /** 
+     * @jws:operation
+     * @jws:conversation phase="continue"
+     */
+    public Item[] viewCatalog() throws Exception
+    {
+        /* 
+         * Handle RemoteException, which is thrown by EJB methods. 
+         * If the exception is caught, send it, along with a 
+         * message, to the client for handling. Also, 
+         * RemoteRuntimeException must be caught for calls to 
+         * EJB control methods.
+         */
+        try{
+            /* 
+             * Retrieve the list of available items from the 
+             * inventory bean, then assign the list to a member
+             * variable.
+             */
+            catalog = inventoryEJB.listItems();
+        } catch (java.rmi.RemoteException re){
+            throw new Exception("OnlineStore: There was a " +
+            "problem getting the list of items.");
+        } catch (weblogic.rmi.extensions.RemoteRuntimeException rre)
+        {
+            throw new Exception("OnlineStore: There was a " +
+            "problem getting the list of items.");
+        }
+        /* Return the retrieved list to the client. */
+        return catalog;
+    }
+    
+    /**
+     * @jws:operation 
+     * @jws:conversation phase="continue"
+     */
+    public void addItem(Integer code)
+    {
+        /* 
+         * Use the list of items in the catalog to find and add a 
+         * new item to the shopping cart.
+         */
+        shoppingCart.add(new Item(
+            catalog[code.intValue()].getName(), 
+            code, catalog[code.intValue()].getPrice())
+        );
+    }
+
+    /**
+     * @jws:operation 
+     * @jws:conversation phase="continue"
+     */
+    public void removeItem(int index)
+    {
+        /* 
+         * Use the list of items in the catalog to find and 
+         * remove an item from the shopping cart.
+         */
+        shoppingCart.remove(index);
+    }
+    
+    /**
+     * @jws:operation
+     * @jws:conversation phase="continue"
+     */
+    public Item[] viewCart()
+    {
+        /* 
+         * Convert the ArrayList that is the shopping cart into 
+         * an array of Item objects for return to the client.
+         */
+        return (Item[])shoppingCart.toArray(new Item[0]);
+    }
+
+    /**
+     * @jws:operation
+     * @jws:conversation phase="continue"
+     */
+    public void checkout()
+    {
+        /* Add the prices of items in the shopping cart. */
+        double total = 0.00;
+        
+        for (int i = 0; i < shoppingCart.size(); i++) {
+            total += (
+            (Item)shoppingCart.get(i)).getPrice().doubleValue();
+        }
+        /* 
+         * Send the total price and the customer's ID to the credit 
+         * application for approval. The response will be received 
+         * in the JMS control callback.
+         */
+        creditCheckJMS.getApproval(total, customerID);
+    }
+
+    private void creditCheckJMS_onApprovalReceived(boolean isApproved)
+    {
+        /* 
+         * If the customer's purchase is not approved, respond with a 
+         * polite message through the onPurchaseApproved callback. Otherwise, 
+         * respond with a "Thank you" message and the list of items 
+         * they purchased. 
+         */
+        if (!isApproved) {
+            callback.onPurchaseApproved("We're sorry, but credit " +
+            "was declined for your account number: " + 
+            customerID, null);
+        } else {
+            callback.onPurchaseApproved("Thanks! Here's a list " +
+            "of your purchases.", 
+                (Item[])shoppingCart.toArray(new Item[0]));
+        }
+    }
+
+}

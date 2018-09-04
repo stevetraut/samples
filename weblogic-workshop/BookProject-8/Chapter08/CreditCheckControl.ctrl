@@ -1,0 +1,84 @@
+package Chapter08; 
+
+import weblogic.jws.control.JMSControl; 
+import java.io.Serializable; 
+
+/** 
+ *   @jws:jms type="queue" send-jndi-name="credit.requestQ" receive-jndi-name="credit.ratingQ" 
+ *   connection-factory-jndi-name="weblogic.jws.jms.QueueConnectionFactory" 
+ */ 
+public interface CreditCheckControl extends JMSControl 
+{ 
+    /** 
+     * If you would like to use XML maps to give the body of the outgoing 
+     * message a specific XML shape, you may define a method in this file and 
+     * annotate it with an XML map. For example, if you want the payload 
+     * to look like this: 
+     * 
+     * <YourOuterTag> 
+     *   <SampleParameter1>Param1</SampleParameter1> 
+     *   <SampleParameter2>Param2</SampleParameter2> 
+     * </YourOuterTag> 
+     * 
+     * Then define a "sendMessage" method as follows: 
+     * 
+     * @jws:jms-message xml-map::
+     *     <rating_request> 
+     *       <purchase_total>{total}</purchase_total> 
+     *     </rating_request>
+     * ::
+     * @jws:jms-property xml-map::
+     *     <property>
+     *         <applicantID>{customerID}</applicantID>
+     *     </property>
+     * ::
+     */ 
+    public void getApproval(double total, String customerID); 
+
+    /* 
+     * NOTE: if you do not want to use XML map to shape the outgoing message you 
+     * do not need to define any "publishing" methods here. In your JWS, simply 
+     * use one of the methods defined in JMSControl. For example, publishText(String) 
+     */ 
+
+
+    /** 
+     * If your control specifies receive-jndi-name, that is your JWS expects to receive messages 
+     * from this control, you will need to implement callback handlers. 
+     * There are 2 ways to do this. 
+     * If the incoming message is in the form of XML, and you would like to use XML maps 
+     * to extract values from it, you need to define a Callback interface in this file as 
+     * follows. 
+     */ 
+
+    interface Callback extends JMSControl.Callback 
+    { 
+        /** 
+         * Define only 1 callback method here. 
+         * 
+         * For example, if your incoming message looks like 
+         * <YourOuterTag> 
+         *   <SampleParameter1>Param1</SampleParameter1> 
+         *   <SampleParameter2>Param2</SampleParameter2> 
+         * </YourOuterTag> 
+         * 
+         * Then define the method like this: 
+         * 
+         * @jws:jms-message xml-map::
+     *     <rating_response>
+     *         <is_approved>{isApproved}</is_approved>
+     *     </rating_response>
+     * ::
+         * @jws:jms-property
+         */ 
+         public void onApprovalReceived(boolean isApproved); 
+    } 
+
+    /* 
+     * NOTE: if you do not need to use XML maps to parse the values from the incoming 
+     * message, then you dont need to define any Callback interface in this file. 
+     * In this case, in your JWS file, implement a handler for one callback from 
+     * JMSControl.Callback. You may only implement one handler; this handler will be called 
+     * for all incoming methods. 
+     */ 
+} 

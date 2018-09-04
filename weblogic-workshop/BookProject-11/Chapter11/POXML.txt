@@ -1,0 +1,31 @@
+<purchaseOrder xmlns="http://www.wiley.com/" orderNumber="12-345-6789">
+  <shippingAddress>
+    <name>Bob Smith</name>
+    <street>1234 Somewhere Lane</street>
+    <city>Someplace</city>
+    <state>SW</state>
+    <zip>12345</zip>
+  </shippingAddress>
+  <billingAddress>
+    <name>Bob Smith</name>
+    <street>1234 Somewhere Lane</street>
+    <city>Someplace</city>
+    <state>SW</state>
+    <zip>12345</zip>
+  </billingAddress>
+  <item>
+    <name>Green Widget</name>
+    <price>25.92</price>
+    <quantity>3</quantity>
+  </item>
+  <item>
+    <name>Blue Widget</name>
+    <price>44.66</price>
+    <quantity>6</quantity>
+  </item>
+  <item>
+    <name>Yellow Widget</name>
+    <price>22.16</price>
+    <quantity>2</quantity>
+  </item>
+</purchaseOrder>

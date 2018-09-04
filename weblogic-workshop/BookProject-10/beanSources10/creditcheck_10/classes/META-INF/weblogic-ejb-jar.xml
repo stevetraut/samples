@@ -1,0 +1,11 @@
+<!DOCTYPE weblogic-ejb-jar PUBLIC '-//BEA Systems, Inc.//DTD WebLogic 7.0.0 EJB//EN' 
+'http://www.bea.com/servers/wls700/dtd/weblogic-ejb-jar.dtd'>
+<weblogic-ejb-jar>
+	<weblogic-enterprise-bean>
+		<ejb-name>CreditCheck</ejb-name>
+		<message-driven-descriptor>
+			<destination-jndi-name>ch10.credit.requestQ</destination-jndi-name>
+		</message-driven-descriptor>
+		<jndi-name>accounts.ch10.CreditCheck</jndi-name>
+	</weblogic-enterprise-bean>
+</weblogic-ejb-jar>

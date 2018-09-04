@@ -1,0 +1,598 @@
+/** @editor-info:link source="OnlineStore.jws" autogen="false" */
+package Chapter10;
+
+import weblogic.jws.control.ServiceControl;
+import com.onlinestore.item.Item;
+
+/**
+ * @jws:location http-url="OnlineStore.jws" jms-url="OnlineStore.jws"
+ * @jws:wsdl file="#OnlineStoreWsdl"
+ */
+public interface OnlineStoreControl extends ServiceControl
+{
+    
+    public interface Callback
+    {
+        /**
+         * @jws:conversation phase="finish"
+         */
+        public void onPurchaseApproved (java.lang.String message, Item[] itemsPurchased);
+
+    }
+
+    /**
+     * @jws:conversation phase="start"
+     */
+    public java.lang.String startShopping (java.lang.String name, java.lang.String customerNumber);
+
+    /**
+     * @jws:conversation phase="continue"
+     */
+    public Item[] viewCatalog ();
+
+    /**
+     * @jws:conversation phase="continue"
+     */
+    public void addItem (int code);
+
+    /**
+     * @jws:conversation phase="continue"
+     */
+    public void removeItem (int index);
+
+    /**
+     * @jws:conversation phase="continue"
+     */
+    public Item[] viewCart ();
+
+    /**
+     * @jws:conversation phase="continue"
+     */
+    public void checkout ();
+
+}
+
+/** @jws:define name="OnlineStoreWsdl" value::
+    <?xml version="1.0" encoding="utf-8"?>
+    <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/" xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://www.openuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xm="http://www.bea.com/2002/04/xmlmap/" targetNamespace="http://www.openuri.org/" >
+      <types>
+        <s:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://www.openuri.org/">
+          <s:element name="startShopping">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="customerNumber" type="s:string" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="startShoppingResponse">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="startShoppingResult" type="s:string" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element nillable="true" name="string" type="s:string" />
+          <s:element name="viewCatalog">
+            <s:complexType />
+          </s:element>
+          <s:element name="viewCatalogResponse">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="viewCatalogResult" type="s0:ArrayOfItem" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:complexType name="ArrayOfItem">
+            <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" nillable="true" name="Item" type="s0:Item" />
+            </s:sequence>
+          </s:complexType>
+          <s:complexType name="Item">
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+                  <s:element minOccurs="0" maxOccurs="1" name="price" type="s:double" />
+                  <s:element minOccurs="0" maxOccurs="1" name="code" type="s:int" />
+                </s:sequence>
+          </s:complexType>
+          <s:element nillable="true" name="ArrayOfItem" type="s0:ArrayOfItem" />
+          <s:element name="addItem">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="code" type="s:int" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="addItemResponse">
+            <s:complexType />
+          </s:element>
+          <s:element name="removeItem">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="1" maxOccurs="1" name="index" type="s:int" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="removeItemResponse">
+            <s:complexType />
+          </s:element>
+          <s:element name="viewCart">
+            <s:complexType />
+          </s:element>
+          <s:element name="viewCartResponse">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="viewCartResult" type="s0:ArrayOfItem" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="checkout">
+            <s:complexType />
+          </s:element>
+          <s:element name="checkoutResponse">
+            <s:complexType />
+          </s:element>
+          <s:element name="onPurchaseApprovedResponse">
+            <s:complexType />
+          </s:element>
+          <s:element name="onPurchaseApproved">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="message" type="s:string" />
+                <s:element minOccurs="0" maxOccurs="1" name="itemsPurchased" type="s0:ArrayOfItem" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:schema>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/2002/04/soap/conversation/">
+          <s:element name="StartHeader" type="conv:StartHeader" />
+          <s:element name="ContinueHeader" type="conv:ContinueHeader" />
+          <s:element name="CallbackHeader" type="conv:CallbackHeader" />
+          <s:complexType name="StartHeader">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="conversationID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="callbackLocation" type="s:string" />
+            </s:sequence>
+          </s:complexType>
+          <s:complexType name="ContinueHeader">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="conversationID" type="s:string" />
+            </s:sequence>
+          </s:complexType>
+          <s:complexType name="CallbackHeader">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="conversationID" type="s:string" />
+            </s:sequence>
+          </s:complexType>
+        </s:schema>
+      </types>
+      <message name="startShoppingSoapIn">
+        <part name="parameters" element="s0:startShopping" />
+      </message>
+      <message name="startShoppingSoapOut">
+        <part name="parameters" element="s0:startShoppingResponse" />
+      </message>
+      <message name="viewCatalogSoapIn">
+        <part name="parameters" element="s0:viewCatalog" />
+      </message>
+      <message name="viewCatalogSoapOut">
+        <part name="parameters" element="s0:viewCatalogResponse" />
+      </message>
+      <message name="addItemSoapIn">
+        <part name="parameters" element="s0:addItem" />
+      </message>
+      <message name="addItemSoapOut">
+        <part name="parameters" element="s0:addItemResponse" />
+      </message>
+      <message name="removeItemSoapIn">
+        <part name="parameters" element="s0:removeItem" />
+      </message>
+      <message name="removeItemSoapOut">
+        <part name="parameters" element="s0:removeItemResponse" />
+      </message>
+      <message name="viewCartSoapIn">
+        <part name="parameters" element="s0:viewCart" />
+      </message>
+      <message name="viewCartSoapOut">
+        <part name="parameters" element="s0:viewCartResponse" />
+      </message>
+      <message name="checkoutSoapIn">
+        <part name="parameters" element="s0:checkout" />
+      </message>
+      <message name="checkoutSoapOut">
+        <part name="parameters" element="s0:checkoutResponse" />
+      </message>
+      <message name="onPurchaseApprovedSoapIn">
+        <part name="parameters" element="s0:onPurchaseApprovedResponse" />
+      </message>
+      <message name="onPurchaseApprovedSoapOut">
+        <part name="parameters" element="s0:onPurchaseApproved" />
+      </message>
+      <message name="startShoppingHttpGetIn">
+        <part name="name" type="s:string" />
+        <part name="customerNumber" type="s:string" />
+      </message>
+      <message name="startShoppingHttpGetOut">
+        <part name="Body" element="s0:string" />
+      </message>
+      <message name="viewCatalogHttpGetIn" />
+      <message name="viewCatalogHttpGetOut">
+        <part name="Body" element="s0:ArrayOfItem" />
+      </message>
+      <message name="addItemHttpGetIn">
+        <part name="code" type="s:string" />
+      </message>
+      <message name="addItemHttpGetOut" />
+      <message name="removeItemHttpGetIn">
+        <part name="index" type="s:string" />
+      </message>
+      <message name="removeItemHttpGetOut" />
+      <message name="viewCartHttpGetIn" />
+      <message name="viewCartHttpGetOut">
+        <part name="Body" element="s0:ArrayOfItem" />
+      </message>
+      <message name="checkoutHttpGetIn" />
+      <message name="checkoutHttpGetOut" />
+      <message name="onPurchaseApprovedHttpGetIn" />
+      <message name="onPurchaseApprovedHttpGetOut">
+        <part name="message" type="s:string" />
+        <part name="itemsPurchased" type="s:string" />
+      </message>
+      <message name="startShoppingHttpPostIn">
+        <part name="name" type="s:string" />
+        <part name="customerNumber" type="s:string" />
+      </message>
+      <message name="startShoppingHttpPostOut">
+        <part name="Body" element="s0:string" />
+      </message>
+      <message name="viewCatalogHttpPostIn" />
+      <message name="viewCatalogHttpPostOut">
+        <part name="Body" element="s0:ArrayOfItem" />
+      </message>
+      <message name="addItemHttpPostIn">
+        <part name="code" type="s:string" />
+      </message>
+      <message name="addItemHttpPostOut" />
+      <message name="removeItemHttpPostIn">
+        <part name="index" type="s:string" />
+      </message>
+      <message name="removeItemHttpPostOut" />
+      <message name="viewCartHttpPostIn" />
+      <message name="viewCartHttpPostOut">
+        <part name="Body" element="s0:ArrayOfItem" />
+      </message>
+      <message name="checkoutHttpPostIn" />
+      <message name="checkoutHttpPostOut" />
+      <message name="onPurchaseApprovedHttpPostIn" />
+      <message name="onPurchaseApprovedHttpPostOut">
+        <part name="message" type="s:string" />
+        <part name="itemsPurchased" type="s:string" />
+      </message>
+      <message name="StartHeader_literal">
+        <part name="StartHeader" element="conv:StartHeader" />
+      </message>
+      <message name="ContinueHeader_literal">
+        <part name="ContinueHeader" element="conv:ContinueHeader" />
+      </message>
+      <message name="CallbackHeader_literal">
+        <part name="CallbackHeader" element="conv:CallbackHeader" />
+      </message>
+      <portType name="OnlineStoreSoap">
+        <operation name="startShopping">
+          <input message="s0:startShoppingSoapIn" />
+          <output message="s0:startShoppingSoapOut" />
+        </operation>
+        <operation name="viewCatalog">
+          <input message="s0:viewCatalogSoapIn" />
+          <output message="s0:viewCatalogSoapOut" />
+        </operation>
+        <operation name="addItem">
+          <input message="s0:addItemSoapIn" />
+          <output message="s0:addItemSoapOut" />
+        </operation>
+        <operation name="removeItem">
+          <input message="s0:removeItemSoapIn" />
+          <output message="s0:removeItemSoapOut" />
+        </operation>
+        <operation name="viewCart">
+          <input message="s0:viewCartSoapIn" />
+          <output message="s0:viewCartSoapOut" />
+        </operation>
+        <operation name="checkout">
+          <input message="s0:checkoutSoapIn" />
+          <output message="s0:checkoutSoapOut" />
+        </operation>
+        <operation name="onPurchaseApproved">
+          <output message="s0:onPurchaseApprovedSoapOut" />
+          <input message="s0:onPurchaseApprovedSoapIn" />
+        </operation>
+      </portType>
+      <portType name="OnlineStoreHttpGet">
+        <operation name="startShopping">
+          <input message="s0:startShoppingHttpGetIn" />
+          <output message="s0:startShoppingHttpGetOut" />
+        </operation>
+        <operation name="viewCatalog">
+          <input message="s0:viewCatalogHttpGetIn" />
+          <output message="s0:viewCatalogHttpGetOut" />
+        </operation>
+        <operation name="addItem">
+          <input message="s0:addItemHttpGetIn" />
+          <output message="s0:addItemHttpGetOut" />
+        </operation>
+        <operation name="removeItem">
+          <input message="s0:removeItemHttpGetIn" />
+          <output message="s0:removeItemHttpGetOut" />
+        </operation>
+        <operation name="viewCart">
+          <input message="s0:viewCartHttpGetIn" />
+          <output message="s0:viewCartHttpGetOut" />
+        </operation>
+        <operation name="checkout">
+          <input message="s0:checkoutHttpGetIn" />
+          <output message="s0:checkoutHttpGetOut" />
+        </operation>
+        <operation name="onPurchaseApproved">
+          <output message="s0:onPurchaseApprovedHttpGetOut" />
+          <input message="s0:onPurchaseApprovedHttpGetIn" />
+        </operation>
+      </portType>
+      <portType name="OnlineStoreHttpPost">
+        <operation name="startShopping">
+          <input message="s0:startShoppingHttpPostIn" />
+          <output message="s0:startShoppingHttpPostOut" />
+        </operation>
+        <operation name="viewCatalog">
+          <input message="s0:viewCatalogHttpPostIn" />
+          <output message="s0:viewCatalogHttpPostOut" />
+        </operation>
+        <operation name="addItem">
+          <input message="s0:addItemHttpPostIn" />
+          <output message="s0:addItemHttpPostOut" />
+        </operation>
+        <operation name="removeItem">
+          <input message="s0:removeItemHttpPostIn" />
+          <output message="s0:removeItemHttpPostOut" />
+        </operation>
+        <operation name="viewCart">
+          <input message="s0:viewCartHttpPostIn" />
+          <output message="s0:viewCartHttpPostOut" />
+        </operation>
+        <operation name="checkout">
+          <input message="s0:checkoutHttpPostIn" />
+          <output message="s0:checkoutHttpPostOut" />
+        </operation>
+        <operation name="onPurchaseApproved">
+          <output message="s0:onPurchaseApprovedHttpPostOut" />
+          <input message="s0:onPurchaseApprovedHttpPostIn" />
+        </operation>
+      </portType>
+      <binding name="OnlineStoreSoap" type="s0:OnlineStoreSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+        <operation name="startShopping">
+          <soap:operation soapAction="http://www.openuri.org/startShopping" style="document" />
+          <cw:transition phase="start" />
+          <input>
+            <soap:body use="literal" />
+            <soap:header wsdl:required="true" message="s0:StartHeader_literal" part="StartHeader" use="literal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+          </input>
+          <output>
+            <soap:body use="literal" />
+          </output>
+        </operation>
+        <operation name="viewCatalog">
+          <soap:operation soapAction="http://www.openuri.org/viewCatalog" style="document" />
+          <cw:transition phase="continue" />
+          <input>
+            <soap:body use="literal" />
+            <soap:header wsdl:required="true" message="s0:ContinueHeader_literal" part="ContinueHeader" use="literal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+          </input>
+          <output>
+            <soap:body use="literal" />
+          </output>
+        </operation>
+        <operation name="addItem">
+          <soap:operation soapAction="http://www.openuri.org/addItem" style="document" />
+          <cw:transition phase="continue" />
+          <input>
+            <soap:body use="literal" />
+            <soap:header wsdl:required="true" message="s0:ContinueHeader_literal" part="ContinueHeader" use="literal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+          </input>
+          <output>
+            <soap:body use="literal" />
+          </output>
+        </operation>
+        <operation name="removeItem">
+          <soap:operation soapAction="http://www.openuri.org/removeItem" style="document" />
+          <cw:transition phase="continue" />
+          <input>
+            <soap:body use="literal" />
+            <soap:header wsdl:required="true" message="s0:ContinueHeader_literal" part="ContinueHeader" use="literal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+          </input>
+          <output>
+            <soap:body use="literal" />
+          </output>
+        </operation>
+        <operation name="viewCart">
+          <soap:operation soapAction="http://www.openuri.org/viewCart" style="document" />
+          <cw:transition phase="continue" />
+          <input>
+            <soap:body use="literal" />
+            <soap:header wsdl:required="true" message="s0:ContinueHeader_literal" part="ContinueHeader" use="literal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+          </input>
+          <output>
+            <soap:body use="literal" />
+          </output>
+        </operation>
+        <operation name="checkout">
+          <soap:operation soapAction="http://www.openuri.org/checkout" style="document" />
+          <cw:transition phase="continue" />
+          <input>
+            <soap:body use="literal" />
+            <soap:header wsdl:required="true" message="s0:ContinueHeader_literal" part="ContinueHeader" use="literal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+          </input>
+          <output>
+            <soap:body use="literal" />
+          </output>
+        </operation>
+        <operation name="onPurchaseApproved">
+          <soap:operation soapAction="http://www.openuri.org/onPurchaseApproved" style="document" />
+          <cw:transition phase="finish" />
+          <input>
+            <soap:body use="literal" />
+          </input>
+          <output>
+            <soap:body use="literal" />
+            <soap:header wsdl:required="true" message="s0:CallbackHeader_literal" part="CallbackHeader" use="literal" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+          </output>
+        </operation>
+      </binding>
+      <binding name="OnlineStoreHttpGet" type="s0:OnlineStoreHttpGet">
+        <http:binding verb="GET" />
+        <operation name="startShopping">
+          <http:operation location="/startShopping" />
+          <cw:transition phase="start" />
+          <input>
+            <http:urlEncoded />
+          </input>
+          <output>
+            <mime:mimeXml part="Body" />
+          </output>
+        </operation>
+        <operation name="viewCatalog">
+          <http:operation location="/viewCatalog" />
+          <cw:transition phase="continue" />
+          <input>
+            <http:urlEncoded />
+          </input>
+          <output>
+            <mime:mimeXml part="Body" />
+          </output>
+        </operation>
+        <operation name="addItem">
+          <http:operation location="/addItem" />
+          <cw:transition phase="continue" />
+          <input>
+            <http:urlEncoded />
+          </input>
+          <output />
+        </operation>
+        <operation name="removeItem">
+          <http:operation location="/removeItem" />
+          <cw:transition phase="continue" />
+          <input>
+            <http:urlEncoded />
+          </input>
+          <output />
+        </operation>
+        <operation name="viewCart">
+          <http:operation location="/viewCart" />
+          <cw:transition phase="continue" />
+          <input>
+            <http:urlEncoded />
+          </input>
+          <output>
+            <mime:mimeXml part="Body" />
+          </output>
+        </operation>
+        <operation name="checkout">
+          <http:operation location="/checkout" />
+          <cw:transition phase="continue" />
+          <input>
+            <http:urlEncoded />
+          </input>
+          <output />
+        </operation>
+        <operation name="onPurchaseApproved">
+          <http:operation location="/onPurchaseApproved" />
+          <cw:transition phase="finish" />
+          <input>
+            <mime:mimeXml part="Body" />
+          </input>
+          <output>
+            <http:urlEncoded />
+          </output>
+        </operation>
+      </binding>
+      <binding name="OnlineStoreHttpPost" type="s0:OnlineStoreHttpPost">
+        <http:binding verb="POST" />
+        <operation name="startShopping">
+          <http:operation location="/startShopping" />
+          <cw:transition phase="start" />
+          <input>
+            <mime:content type="application/x-www-form-urlencoded" />
+          </input>
+          <output>
+            <mime:mimeXml part="Body" />
+          </output>
+        </operation>
+        <operation name="viewCatalog">
+          <http:operation location="/viewCatalog" />
+          <cw:transition phase="continue" />
+          <input>
+            <mime:content type="application/x-www-form-urlencoded" />
+          </input>
+          <output>
+            <mime:mimeXml part="Body" />
+          </output>
+        </operation>
+        <operation name="addItem">
+          <http:operation location="/addItem" />
+          <cw:transition phase="continue" />
+          <input>
+            <mime:content type="application/x-www-form-urlencoded" />
+          </input>
+          <output />
+        </operation>
+        <operation name="removeItem">
+          <http:operation location="/removeItem" />
+          <cw:transition phase="continue" />
+          <input>
+            <mime:content type="application/x-www-form-urlencoded" />
+          </input>
+          <output />
+        </operation>
+        <operation name="viewCart">
+          <http:operation location="/viewCart" />
+          <cw:transition phase="continue" />
+          <input>
+            <mime:content type="application/x-www-form-urlencoded" />
+          </input>
+          <output>
+            <mime:mimeXml part="Body" />
+          </output>
+        </operation>
+        <operation name="checkout">
+          <http:operation location="/checkout" />
+          <cw:transition phase="continue" />
+          <input>
+            <mime:content type="application/x-www-form-urlencoded" />
+          </input>
+          <output />
+        </operation>
+        <operation name="onPurchaseApproved">
+          <http:operation location="/onPurchaseApproved" />
+          <cw:transition phase="finish" />
+          <input>
+            <mime:mimeXml part="Body" />
+          </input>
+          <output>
+            <mime:content type="application/x-www-form-urlencoded" />
+          </output>
+        </operation>
+      </binding>
+      <service name="OnlineStore">
+        <port name="OnlineStoreSoap" binding="s0:OnlineStoreSoap">
+          <soap:address location="http://STRAUT-DELL:7001/BookProject/Chapter10/OnlineStore.jws" />
+        </port>
+        <port name="OnlineStoreHttpGet" binding="s0:OnlineStoreHttpGet">
+          <http:address location="http://STRAUT-DELL:7001/BookProject/Chapter10/OnlineStore.jws" />
+        </port>
+        <port name="OnlineStoreHttpPost" binding="s0:OnlineStoreHttpPost">
+          <http:address location="http://STRAUT-DELL:7001/BookProject/Chapter10/OnlineStore.jws" />
+        </port>
+      </service>
+    </definitions>
+ * ::
+ */
+
