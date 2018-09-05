@@ -10,7 +10,7 @@ The [`api-baas`](api-baas) directory contains three samples illustrating roughly
 
 API BaaS is a NoSQL data store. The samples were designed to illustrate how you could use API BaaS as a backend by incorporating the SDKs into your mobile apps.
 
-These samples are snapshots from code I wrote in 2013; they each have later versions running on later SDKs. API BaaS lives on as the open source project [Usergrid]().
+These samples are snapshots from code I wrote in 2013; they each have later versions running on later SDKs. API BaaS lives on as the open source project [Usergrid](http://usergrid.apache.org/).
 
 ## weblogic-workshop
 
