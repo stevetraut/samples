@@ -31,7 +31,7 @@ public class GroupsListViewActivity extends Activity {
 
     private UsersAndGroupsApplication usersGroupsApp;
     private TextView groupListErrorMessage;
-	String logCategory = "GroupsList";
+    String logCategory = "GroupsList";
     
     /**
      * Called when the activity starts.
@@ -41,31 +41,31 @@ public class GroupsListViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groups_list_view);
         // A place to put error messages.
-		groupListErrorMessage = (TextView)findViewById(R.id.textGroupListError);
+        groupListErrorMessage = (TextView)findViewById(R.id.textGroupListError);
 
-    	usersGroupsApp = (UsersAndGroupsApplication) getApplication();
-    	
-    	// Call the function that gets user data to display.
+        usersGroupsApp = (UsersAndGroupsApplication) getApplication();
+        
+        // Call the function that gets user data to display.
         getGroups();
     }
     
     @Override
     protected void onResume() {
-    	super.onResume();
-    	getGroups();
+        super.onResume();
+        getGroups();
     }
 
     /**
      * Gets the application's group data and binds it to the 
      * list view that displays it.
      */
-	public void getGroups() {
-		groupListErrorMessage.setText("");
-		
-		// Prepare the pieces that will be used to display the list.
-		final ArrayList<String> groups = new ArrayList<String>();
-    	final GroupsArrayAdapter adapter = 
-    			new GroupsArrayAdapter(this, android.R.layout.simple_list_item_1, groups);
+    public void getGroups() {
+        groupListErrorMessage.setText("");
+        
+        // Prepare the pieces that will be used to display the list.
+        final ArrayList<String> groups = new ArrayList<String>();
+        final GroupsArrayAdapter adapter = 
+                new GroupsArrayAdapter(this, android.R.layout.simple_list_item_1, groups);
         adapter.setNotifyOnChange(true);        
         final ListView listView = (ListView) findViewById(R.id.groupsListview);
         listView.setAdapter(adapter);
@@ -75,105 +75,105 @@ public class GroupsListViewActivity extends Activity {
         
         if (dataClient != null) {
 
-        	// Call a data client method to retrieve the group data
-        	// asynchronously. Handle the result with methods of the 
-        	// callback object created here.
-        	dataClient.queryGroupsAsync(new QueryResultsCallback(){
+            // Call a data client method to retrieve the group data
+            // asynchronously. Handle the result with methods of the 
+            // callback object created here.
+            dataClient.queryGroupsAsync(new QueryResultsCallback(){
 
-				@Override
-				public void onException(Exception e) {
-                	Log.i("Error", e.getMessage());
-				}
+                @Override
+                public void onException(Exception e) {
+                    Log.i("Error", e.getMessage());
+                }
 
-				// Handle the result of the query here.
-				@Override
-				public void onResponse(Query query) {
-					if (query != null)
-					{
-						ApiResponse response = query.getResponse();
-	                	if (response != null) {
-	                		// Get the list of groups from the query response.
-	                		List<Entity> groups = response.getEntities();
-	                		if (groups.size() > 0)
-	                		{
-	                			// Loop through the groups data, getting
-	                			// values to display in the UI.
-		                		for (int j = 0; j < groups.size(); j++) {
-		                			Entity group = groups.get(j);
-		                			String groupTitle = group.getStringProperty("title");
-		                			adapter.add(groupTitle);	                			
-			                		adapter.notifyDataSetChanged();
-		                		}
-		                	// If there isn't any group data in the response, 
-		                	// display a message.
-	                		} else {
-	                			groupListErrorMessage.setText("No groups to display. " +
-	                					"Use the menu to add some.");
-	                			return;
-	                		}
-	                    // The response might be null for various reasons, including
-	                	// an improperly initialized ApigeeClient or permission on the
-	                	// server-side application that are too restrictive.
-	                	} else {
-							String message = "API response was null. ";
-							usersGroupsApp.showErrorMessage(message);							
-							Log.d(logCategory, message.toString());							
-	                	}
-					}
-				}
+                // Handle the result of the query here.
+                @Override
+                public void onResponse(Query query) {
+                    if (query != null)
+                    {
+                        ApiResponse response = query.getResponse();
+                        if (response != null) {
+                            // Get the list of groups from the query response.
+                            List<Entity> groups = response.getEntities();
+                            if (groups.size() > 0)
+                            {
+                                // Loop through the groups data, getting
+                                // values to display in the UI.
+                                for (int j = 0; j < groups.size(); j++) {
+                                    Entity group = groups.get(j);
+                                    String groupTitle = group.getStringProperty("title");
+                                    adapter.add(groupTitle);                                
+                                    adapter.notifyDataSetChanged();
+                                }
+                            // If there isn't any group data in the response, 
+                            // display a message.
+                            } else {
+                                groupListErrorMessage.setText("No groups to display. " +
+                                        "Use the menu to add some.");
+                                return;
+                            }
+                        // The response might be null for various reasons, including
+                        // an improperly initialized ApigeeClient or permission on the
+                        // server-side application that are too restrictive.
+                        } else {
+                            String message = "API response was null. ";
+                            usersGroupsApp.showErrorMessage(message);                            
+                            Log.d(logCategory, message.toString());                            
+                        }
+                    }
+                }
 
-				@Override
-				public void onQueryResults(Query query) {
-					System.out.println(query);					
-				}
+                @Override
+                public void onQueryResults(Query query) {
+                    System.out.println(query);                    
+                }
             });
         } else {
-			String message = "Data client was null. ";
-			usersGroupsApp.showErrorMessage(message);							
-			Log.d(logCategory, message.toString());							
+            String message = "Data client was null. ";
+            usersGroupsApp.showErrorMessage(message);                            
+            Log.d(logCategory, message.toString());                            
         }
-	}
-	
-	/**
-	 * Represents the data model for data retrieved from a query.
-	 */
+    }
+    
+    /**
+     * Represents the data model for data retrieved from a query.
+     */
     private class GroupsArrayAdapter extends ArrayAdapter<String> {
         public GroupsArrayAdapter(Context context, int textViewResourceId, List<String> objects) {
             super(context, textViewResourceId, objects);
         }
     }
     
-	/**
-	 * Called to support click events in the menu.
-	 */
+    /**
+     * Called to support click events in the menu.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	switch(item.getItemId()) { 
-    	case R.id.action_add_group:
-    		openGroupsForm();
-    		return true;
-    	case R.id.action_go_home:
-    		goHome();
-    		return true;
-    	default:
-    		return false;
-    	}
+        switch(item.getItemId()) { 
+        case R.id.action_add_group:
+            openGroupsForm();
+            return true;
+        case R.id.action_go_home:
+            goHome();
+            return true;
+        default:
+            return false;
+        }
     }
     
     /**
      * Handles the menu item to add a new group.
      */
     public void openGroupsForm(){
-    	Intent intent = new Intent(this, NewGroupActivity.class);
-    	this.startActivity(intent);
+        Intent intent = new Intent(this, NewGroupActivity.class);
+        this.startActivity(intent);
     }
     
     /**
      * Handles the menu item to go to the home page.
      */
     public void goHome(){
-    	Intent intent = new Intent(this, UsersAndGroupsHomeActivity.class);
-    	this.startActivity(intent);
+        Intent intent = new Intent(this, UsersAndGroupsHomeActivity.class);
+        this.startActivity(intent);
     }
 
     /**

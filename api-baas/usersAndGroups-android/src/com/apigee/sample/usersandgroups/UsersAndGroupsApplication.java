@@ -15,45 +15,45 @@ import com.apigee.sdk.data.client.DataClient;
  */
 public class UsersAndGroupsApplication extends Application
 {
-	// A null response to a query or API request can 
-	// sometimes be due to an improperly initialized
-	// Apigee client or to app services application permissions
-	// that are too restrictive.
+    // A null response to a query or API request can 
+    // sometimes be due to an improperly initialized
+    // Apigee client or to app services application permissions
+    // that are too restrictive.
     public static final String queryError = 
-			"Confirm that your ORGNAME is set and " + 
-					"that your application's permissions aren't " +
-					"too restrictive.";
-	
-	private ApigeeClient apigeeClient;
-	
-	public UsersAndGroupsApplication()
-	{
-		this.apigeeClient = null;
-	}
-	
-	public ApigeeClient getApigeeClient()
-	{
-			return this.apigeeClient;
-	}
-	
-	public void setApigeeClient(ApigeeClient apigeeClient)
-	{
-		this.apigeeClient = apigeeClient;
-	}
-	
-	public DataClient getDataClient() {
-		return this.apigeeClient.getDataClient();
-	}
-	
-	/**
-	 * Called to display a message when a query fails.
-	 */
-	public void showErrorMessage(CharSequence message) {
-		
-		Context context = getApplicationContext();
-		message = message + queryError;
-		int duration = Toast.LENGTH_LONG;
-		Toast toast = Toast.makeText(context, message, duration);
-		toast.show();
-	}	
+            "Confirm that your ORGNAME is set and " + 
+                    "that your application's permissions aren't " +
+                    "too restrictive.";
+    
+    private ApigeeClient apigeeClient;
+    
+    public UsersAndGroupsApplication()
+    {
+        this.apigeeClient = null;
+    }
+    
+    public ApigeeClient getApigeeClient()
+    {
+            return this.apigeeClient;
+    }
+    
+    public void setApigeeClient(ApigeeClient apigeeClient)
+    {
+        this.apigeeClient = apigeeClient;
+    }
+    
+    public DataClient getDataClient() {
+        return this.apigeeClient.getDataClient();
+    }
+    
+    /**
+     * Called to display a message when a query fails.
+     */
+    public void showErrorMessage(CharSequence message) {
+        
+        Context context = getApplicationContext();
+        message = message + queryError;
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context, message, duration);
+        toast.show();
+    }    
 }
