@@ -1,0 +1,30 @@
+<?xml version="1.0"?> 
+<control-tags xmlns="http://www.bea.com/2003/03/controls/">
+    <control-tag name="server-data">
+        <description>Location and login information for the server to access.</description>
+        <attribute name="url" required="true">
+            <description>The URL of the server to access.</description>
+            <type>
+                <URL/>
+            </type>
+        </attribute>
+        <attribute name="server-name" required="true">
+            <description>The name of the server to access.</description>
+            <type>
+                <text/>
+            </type>
+        </attribute>
+        <attribute name="user-name" required="false">
+            <description>The username of a user who has administrative access to this server.</description>
+            <type>
+                <text/>
+            </type>
+        </attribute>
+        <attribute name="password" required="false">
+            <description>The password of a user who has administrative access to this server.</description>
+            <type>
+                <text/>
+            </type>
+        </attribute>
+    </control-tag>
+</control-tags>

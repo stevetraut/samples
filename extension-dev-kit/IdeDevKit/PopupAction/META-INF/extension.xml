@@ -1,0 +1,25 @@
+<extension-definition>
+    <!-- Specify an action extension for a popup menu. -->
+    <extension-xml id="urn:com-bea-ide:actions">
+        <action-ui>
+        </action-ui>
+        <action-set>
+            <!-- Specify the UI and the Java class that contains logic for the
+            popup menu command. -->
+            <action class="ideExtensions.popupAction.UploadAction" label="upload...">
+                <location priority="20" path="popup/projectPaneRightClick/main"/>
+            </action>
+        </action-set>
+    </extension-xml>
+
+    <!-- Specify a preferences extension. -->
+    <extension-xml id="urn:com-bea-ide:settings">
+        <project-preferences>
+            <!-- Specify the Java class that contains the UI for the preferences
+            panel. This panel will collect information needed to connect to the
+            server for FTP upload. -->
+            <panel label="FTP" class="ideExtensions.popupAction.FTPPrefsPanel" priority="100"/>
+        </project-preferences>
+    </extension-xml>
+
+</extension-definition>

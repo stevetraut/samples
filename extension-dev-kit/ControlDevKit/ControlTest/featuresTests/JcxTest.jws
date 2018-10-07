@@ -1,0 +1,41 @@
+package featuresTests;
+
+import com.bea.control.JwsContext;
+import com.bea.control.ControlException;
+import java.io.File;
+import com.bea.xml.XmlCursor;
+import com.bea.xml.XmlObject;
+import java.io.InputStream;
+
+public class JcxTest implements com.bea.jws.WebService
+{ 
+
+     /**
+     * @common:control
+     */
+    private featuresTests.POXQueryControl pOXQueryControl;
+
+    /**
+     * Executes an XQuery expression against the XML specified by the xmlFilePath argument.
+     * The query expression itself is specified as an attribute value on the control
+     * method called by this code.
+     * <br/>
+     * Note that for debugging purposes, control exceptions are not caught by this service.
+     * This means that if there is a problem with the query expression, it will be 
+     * written to Test View. 
+     * <br/>
+     * When testing with this method, the method's argument can point to a file
+     * in the control's jar (use "/jcxCreate/testXML/po.xml" to find this).  The 
+     * parameter can also give an absolute path a po.xml file included 
+     * in the testXML folder of this feature test project.
+     * 
+     * @common:operation
+     */
+    public String getXMLData(String filePath)
+    {
+        String resultsXML = null;
+         XmlCursor queryResults = pOXQueryControl.selectLineItem(filePath);
+        resultsXML = queryResults.xmlText();
+        return resultsXML;
+    }
+} 

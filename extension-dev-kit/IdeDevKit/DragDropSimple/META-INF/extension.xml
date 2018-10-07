@@ -1,0 +1,10 @@
+<extension-definition>
+    <!-- Specifies a frame extension to display a tree view of data for
+        illustrating drag/drop operations. -->
+	<extension-xml id="urn:com-bea-ide:frame">
+		<frame-view-set>
+			<frame-view class="ideExtensions.dragDropSimple.TreePanelView"
+                label="Drag Source Tree" />
+		</frame-view-set>
+	</extension-xml>
+</extension-definition>

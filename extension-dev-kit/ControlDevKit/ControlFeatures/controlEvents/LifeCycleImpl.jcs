@@ -1,0 +1,114 @@
+package controlEvents; 
+
+import com.bea.control.*;
+import java.util.Date;
+import java.util.Calendar;
+
+/**
+ * The LifeCycle control simply illustrates the events that occur
+ * in the life of a Java control. As the client uses this control --
+ * acquiring it, calling its method, releasing it -- each of these
+ * events is reported to the WebLogic Server console window.
+ * 
+ * @jcs:jc-jar palette-priority="7" label="LifeCycle"
+ *          version="1.0" 
+ *          icon-16="/images/buffer_16.gif" 
+ *          icon-32="/images/buffer_32.gif" 
+ *          group-name="Feature Sample Controls" 
+ *          description="Illustrates Context life cycle events"
+ *          @editor-info:code-gen control-interface="true"
+ */
+public class LifeCycleImpl implements LifeCycle, com.bea.control.ControlSource
+{ 
+    /**
+     * @jc:timer timeout="5 seconds"
+     * @common:control
+     */
+    private TimerControl delayTimer;
+
+    public Callback callback;
+
+    long m_currentTime;
+    StringBuffer m_cycleMessages = new StringBuffer();
+    Calendar m_calendar;
+
+    /**
+     * @common:context
+     */
+    com.bea.control.ControlContext context;
+
+    /**
+     * The startMeUp method provides a place for clients to start using this
+     * control.
+     * 
+     * @common:operation
+     */
+    public void startMeUp()
+    {
+        String message = "LifeCycle: context.startMeUp method is called. \n";
+        System.out.println(message);
+        m_cycleMessages.append(message);
+    }
+
+    /*
+     * The onCreate callback is received when the control is created by 
+     * the container. onCreate is a good place to acquire resources that
+     * may be needed by the control.
+     */
+    public void context_onCreate() {
+        delayTimer.start();
+        String message = "LifeCycle: context_onCreate received. Timer started. \n";
+
+        System.out.println(message);
+        m_cycleMessages.append(message);
+    }
+    
+    /*
+     * onAcquire is received when a control operation is about to start.
+     */
+    public void context_onAcquire() {
+        String message = "LifeCycle: context_onAcquire received. \n";
+        System.out.println(message);
+        m_cycleMessages.append(message);
+    }
+    
+    /*
+     * onReset is implemented to let the container know that this 
+     * instance can be re-used after a call to onReset().
+     */
+    public void context_onReset() {
+        String message = "LifeCycle: context_onReset received. \n";
+        System.out.println(message);
+        m_cycleMessages.append(message);
+    }
+    
+    /*
+     * onRelease is received with a control operation has finished.
+     */
+    public void context_onRelease() {
+        String message = "LifeCycle: context_onRelease received. \n";
+        System.out.println(message);
+        m_cycleMessages.append(message);
+    }
+
+    
+    /*
+     * onException is received in the event of an unhandled exception.
+     * It provides a place to do clean up and notify the client
+     * of the error.
+     */
+    public void context_onException(Exception e, String methodName, 
+        Object[] methodArgs) 
+    {
+        throw new ControlException("Exception at: " + methodName, e);
+    }
+
+  
+    public void delayTimer_onTimeout(long arg0)
+    {
+        String message = "LifeCycle: delayTimer_onTimeout received. " +
+            "onDone about to be invoked. \n";
+        System.out.println(message);
+        callback.onDone(m_cycleMessages.toString());        
+    }
+} 

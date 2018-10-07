@@ -1,0 +1,56 @@
+package featuresTests; 
+
+import com.bea.control.JwsContext;
+import java.util.Date;
+
+/* 
+ * This web service uses the EventRaiser control. That control is designed
+ * to simply forward the onTimeout event it receives from a Timer control.
+ * 
+ * To test the control, run the web service. When Test View appears, click
+ * the getStarted button, the click the refresh button until the response 
+ * appears. The control is designed to respond after 5 seconds.
+ */
+public class EventRaiserTest implements com.bea.jws.WebService
+{ 
+    public Callback callback;
+
+    /** @common:context */ 
+    JwsContext context; 
+
+    /**
+     * @common:control
+     */
+    private controlEvents.EventRaiser eventRaiserControl;
+
+    /**
+     * This method tells the EventRaiser control to start its timer.
+     * 
+     * @common:operation
+     * @jws:conversation phase="start"
+     */
+    public void getStarted()
+    {
+        eventRaiserControl.startTimer();
+    }
+
+    /*
+     * This code handles a callback exposed by the EventRaiser control.
+     * The onTimeout fired by EventRaiser's Timer control is simply
+     * forwarded through this callback. The value received by the
+     * callback is wrapped in a Date object and converted to a String 
+     * for display in Test View.
+     */
+    public void eventRaiserControl_backEndTimer_onTimeout(long arg0)
+    {
+        callback.onDone(new Date(arg0).toLocaleString());
+    }
+
+    public interface Callback 
+    {
+        /**
+         * @jws:conversation phase="finish"
+         */
+        void onDone(String response);
+    }    
+} 

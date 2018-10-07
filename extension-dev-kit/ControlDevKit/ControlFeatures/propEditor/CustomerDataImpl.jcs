@@ -1,0 +1,95 @@
+package propEditor; 
+
+import com.bea.control.*;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * The CustomerData control illustrates how to connect a custom attribute
+ * editing/validation dialog. The dialog ensures that the customer-id
+ * attribute is a six-digit number.
+ * 
+ * After specifying a value for the customer-id attribute, you can use 
+ * the control's method's to get information about the customer.
+ * 
+ * @jcs:control-tags file="CustomerData-tags.xml"
+ * @jcs:jc-jar label="CustomerData" 
+ *      version="0.8" 
+ *      icon-16="/images/hello_16.gif" 
+ *      icon-32="/images/hello_32.gif"
+ *      palette-priority="6" 
+ *      group-name="Feature Sample Controls"
+ *      description="Illustrates custom property editor"
+ *      @editor-info:code-gen control-interface="true"
+ */
+public class CustomerDataImpl implements CustomerData, com.bea.control.ControlSource
+{ 
+    /**
+     * @common:control
+     */
+    private propEditor.CustomerDBControl customerDB;
+    
+    private String m_custIDProp;
+    private int m_custIDInt;
+
+    /**
+     * @common:context
+     */
+    com.bea.control.ControlContext context;
+
+    /*
+     * Use the onCreate callback handler to retrieve the attribute value set
+     * by the control's user. With the customer-id attribute stored internally,
+     * it can be used by other control methods. Remember that the onCreate callback
+     * is received when the control is created, before any control methods are called.
+     */
+    public void context_onCreate() {
+        m_custIDProp = context.getControlAttribute("jc:customer-db", "customer-id");
+        m_custIDInt = new Integer(m_custIDProp).intValue();
+    }
+
+    /**
+     * Returns the customer's company name using the nested Database control.
+     * 
+     * @common:operation
+     */
+    public String getCustomerName()
+    {
+        String custIDProp = context.getControlAttribute("jc:customer-db", "customer-id");
+        int custIDInt = new Integer(custIDProp).intValue();
+        String customerName = customerDB.selectCustomerName(custIDInt);
+        return customerName;
+    }
+
+    /**
+     * Returns a list of items the customer has ordered. The database includes
+     * tables for customers, items, items by order, and customers by order.
+     * This is method nests queries against these tables to produce joined
+     * results.
+     * 
+     * @common:operation
+     */
+    public ArrayList getItemsOrdered()
+    {
+        ArrayList itemNamesArray = new ArrayList();
+        ResultSet orderIDs = customerDB.selectOrdersByCustomer(m_custIDInt);
+        try{
+            while (orderIDs.next()){
+                int orderID = orderIDs.getInt("orderid");
+                ResultSet itemNumbers = customerDB.selectItemNumbersByOrder(orderID);
+                while (itemNumbers.next()){
+                    int itemNumber = itemNumbers.getInt("itemnumber");
+                    ResultSet itemNames = customerDB.selectItemNameByItemNumber(itemNumber);
+                    while (itemNames.next()){
+                        itemNamesArray.add(itemNames.getString("itemname"));
+                    }
+                }
+            }
+            return itemNamesArray;
+        } catch(SQLException se){
+            throw new ControlException("Error while getting items ordered.", se);
+        }
+    }
+} 

@@ -1,0 +1,34 @@
+package featuresTests;
+
+import com.bea.control.JwsContext;
+
+/*
+ * This web service provides a way to test the ServerCheck control. 
+ * ServerCheck simply returns the domain name of the server specified
+ * by its property attributes. In the case of this instance, that
+ * server is the one used by WebLogic Workshop samples.
+ * 
+ * The ServerCheck control illustrates how to connect a custom
+ * control insert dialog box. To see that dialog in action, add a 
+ * new instance of the control to this web service.
+ * 
+ * To test the control, run it, then click the getDomainName
+ * button. Test View will refresh to display the domain name as a 
+ * response.
+ */
+public class ServerCheckTest implements com.bea.jws.WebService
+{ 
+    /**
+     * @common:control
+     * @jc:server-data password="weblogic" user-name="weblogic" url="http://localhost:7001" server-name="cgServer"
+     */
+    private insertWizard.ServerCheck thisServerCheck;
+
+    /**
+     * @common:operation
+     */
+    public String getDomainName()
+    {
+        return thisServerCheck.getDomainName();
+    }
+} 

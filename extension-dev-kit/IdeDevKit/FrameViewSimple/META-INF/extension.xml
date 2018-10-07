@@ -1,0 +1,17 @@
+<extension-definition>
+
+<!-- Defines a frame for display in the IDE. A frame is a dockable window similar to the
+      Properties editor, Structure View, and so on. -->
+<extension-xml id="urn:com-bea-ide:frame">
+    <!-- Groups frames specified here. -->
+    <frame-view-set>
+        <!-- Specifies a frame whose tab is labeled "hi.yo.peace.". The class
+ attribute specifies the class that should be used for UI and logic for this
+ frame. The askavailable attribute is set to "true" to tell the IDE that it
+ should call the FrameView class' isAvailable method to find out if this
+ frame is available for display. -->
+	    <frame-view class="ideExtensions.frameViewSimple.FrameView" label="hi.yo.peace." askavailable="true" />
+    </frame-view-set>
+</extension-xml>
+
+</extension-definition>

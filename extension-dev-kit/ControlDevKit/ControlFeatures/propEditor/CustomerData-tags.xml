@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<control-tags xmlns="http://www.bea.com/2003/03/controls/" editor-class="propEditor.ide.CustomerDataEditorSupport"  >
+    <control-tag name="customer-db" >
+        <description>Information needed to retrieve customer data.</description>
+        <attribute name="customer-id" required="true">
+            <description>Unique identifier for the customer in the database.</description>
+            <type>
+                <custom name="custidType" class-name="propEditor.ide.CustIdValidator"/>          
+            </type>
+        </attribute>
+    </control-tag>
+</control-tags>
+ 

@@ -1,0 +1,33 @@
+<extension-definition>
+
+    <!-- Specifies that this extension is an action. -->
+    <extension-xml id="urn:com-bea-ide:actions">
+
+        <!-- Specify button UI. -->
+        <action-ui>
+            <!-- Specific a toolbar labeled "Favorites". The "favorites" id value will be used
+            below to locate the button button when connecting this toolbar with the button
+            and the button's logic. -->
+            <toolbar id="favorites" path="toolbar/main" priority="2" label="Favorites">
+                <!-- Specify an action group through which this toolbar will be connected
+                with the action that executes for it. An <action-group> is separated from
+                other groups by a visible bar. -->
+                <action-group id="default" priority="10"/>
+            </toolbar>
+        </action-ui>
+
+        <!-- Specify additional logic and UI for the button. The <action>
+        block below tells the IDE what class to use for the button action's logic. It also
+        specifies the action command's visible label, icon, and location on the toolbar
+        (whose id is "favorites", as noted above). -->
+        <action-set>
+            <action class="ideExtensions.toolbarButton.LaunchBrowser"
+                label="Launch Browser" icon="images/workshop/debugger/icons/debug_watch.gif"
+                show-always="true">
+                <location priority="10" path="toolbar/favorites/default" />
+            </action>
+        </action-set>
+
+    </extension-xml>
+
+</extension-definition>

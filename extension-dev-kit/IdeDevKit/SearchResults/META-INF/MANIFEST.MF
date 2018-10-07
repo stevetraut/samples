@@ -1,0 +1,1 @@
+Class-Path: ../lib/helputil.jar ../lib/lucene-1.2.jar

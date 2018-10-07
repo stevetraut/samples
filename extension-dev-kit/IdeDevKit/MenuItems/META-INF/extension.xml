@@ -1,0 +1,51 @@
+<extension-definition>
+    <extension-xml id="urn:com-bea-ide:actions">
+        <!-- Specify high-level menu UI to which further menus and commands will be attached. -->
+        <action-ui>
+            <!-- Specify a menu labeled "Favorites". The "favorites" id value will be used elsewhere in this
+            XML to identify this menu; the "Favorites" label is for display purposes only. The path attribute
+            specifies that this menu should be available from the IDE's main menu bar. -->
+            <menu id="favorites" path="menu/main" priority="100" label="Favorites">
+                <!-- In the Favorites menu, create groups that will be separated by visible bars in the menu.
+                 Note that the actual menu commands (both UI and logic) within these groups is defined in the
+                 <action-set> block below. -->
+                <action-group id="favorites" priority="5" path="menu/favorites">
+                    <!-- A "Favorites" submenu. Values for id attributes specified here are used in the 
+                    <action-set> block below to refer to these menu locations. <action> blocks below 
+                    further populate the contents of this submenu and associate logic with the commands. -->
+                    <menu id="favoritesMenu" priority="10" label="Links">
+                        <action-group id="favoritesSubMenu1" priority="10"/>
+                        <!-- Use the FavoritesGenerator class to populate the contents of this submenu. -->
+                        <action-group id="favoritesSubMenu2" priority="10" generator="IdeExtensions.MenuItems.FavoritesGenerator"/>
+                    </menu>
+                </action-group>
+                <!-- Another group whose contents are populated in the <action-set> block below. In other words,
+                this becomes the "Favorites" menu's "Add Favorite" command. -->
+                <action-group id="default" priority="10"/>
+            </menu>
+        </action-ui>
+        <!-- Specify the logic and UI for the lower-level commands that do real work. Each of the <action> 
+        blocks below specifies and action and tells the IDE what class to use for the action's logic. Each also
+        specifies the action command's visible label, icon, and location. -->
+        <action-set>
+            <action class="IdeExtensions.MenuItems.AddFavoriteAction" label="Add Favorite"
+                icon="images/workshop/debugger/icons/debug_watch.gif" show-always="true">
+                <!-- The path attribute's value here points the IDE to the "default" <action-group> specifed 
+                above. Other <location> elements below work similarly. -->
+                <location priority="10" path="menu/favorites/default"/>
+            </action>
+            <action class="IdeExtensions.MenuItems.LaunchBrowserAction1" label="http://www.bea.com"
+                icon="images/workshop/debugger/icons/debug_watch.gif" show-always="true">
+                <location priority="10" path="menu/favorites/favoritesMenu/favoritesSubMenu1"/>
+            </action>
+            <action class="IdeExtensions.MenuItems.LaunchBrowserAction2"
+                label="http://www.google.com" icon="images/workshop/debugger/icons/debug_watch.gif" show-always="true">
+                <location priority="10" path="menu/favorites/favoritesMenu/favoritesSubMenu1"/>
+            </action>
+            <action class="IdeExtensions.MenuItems.LaunchBrowserAction3"
+                label="http://www.yahoo.com" icon="images/workshop/debugger/icons/debug_watch.gif" show-always="true">
+                <location priority="10" path="menu/favorites/favoritesMenu/favoritesSubMenu1"/>
+            </action>
+        </action-set>
+    </extension-xml>
+</extension-definition>

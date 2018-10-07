@@ -1,0 +1,22 @@
+package featuresTests; 
+
+ import com.bea.control.*; 
+ import com.bea.xml.XmlCursor; 
+ import jcxCreate.XQuery; 
+
+ public interface POXQueryControl extends XQuery, com.bea.control.ControlExtension 
+ { 
+ 
+    /* Replace the following method with your own. Be sure 
+     * that your method returns an XmlCursor and that its 
+     * parameter is a File object to contain the XML against 
+     * which to execute the XQuery expression. 
+     */ 
+ 
+    /** 
+     * @jc:query expression="$input/purchase-order/line-item[price <= 20.00]" 
+     */ 
+     XmlCursor selectLineItem(String filePath); 
+ 
+} 
+ 

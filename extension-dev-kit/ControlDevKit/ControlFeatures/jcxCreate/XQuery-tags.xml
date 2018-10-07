@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<control-tags xmlns="http://www.bea.com/2003/03/controls/" editor-class="jcxCreate.ide.XQueryEditorSupport">
+    <method-tag name="query" method-location="interface-method">
+        <description>Information about the XQuery.</description>
+        <attribute name="expression" required="true">
+            <description>The XQuery expression.</description>
+            <type>
+                <text/>
+            </type>
+        </attribute>
+    </method-tag>
+</control-tags>

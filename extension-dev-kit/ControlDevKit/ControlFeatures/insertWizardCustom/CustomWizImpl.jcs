@@ -1,0 +1,21 @@
+package insertWizardCustom; 
+
+import com.bea.control.*;
+import java.lang.reflect.Method;
+/**
+ * @editor-info:code-gen control-interface="true"
+ * @jcs:jc-jar group-name="Feature Sample Controls" insert-wizard-class="insertWizardCustom.ide.CustomInsertWizard" label="Custom Insert Wizard"
+ */
+public class CustomWizImpl implements CustomWiz, ControlSource, Extensible
+{ 
+
+    static final long serialVersionUID = 1L;
+
+    public Object invoke(Method method, Object[] args) throws Throwable
+    {
+        if (method.getName()=="echoInput")
+            return (String)args[0];
+        else
+            return "Unknown method";
+    }
+} 

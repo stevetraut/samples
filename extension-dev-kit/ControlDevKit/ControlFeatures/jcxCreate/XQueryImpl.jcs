@@ -1,0 +1,115 @@
+package jcxCreate; 
+
+import com.bea.control.*;
+import com.bea.xml.XmlCursor;
+import com.bea.xml.XmlObject;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
+import java.io.File;
+import java.io.InputStream;
+import java.io.FileInputStream;
+
+/**
+ * The XQuery control illustrates how to create a control
+ * that generates a JCX file. A JCX file enables the control's
+ * user to customize the control's interface.
+ * 
+ * This control also includes a dialog for editing an attribute
+ * containing the XQuery expression. Each method of the control's
+ * extended interface is annotation with this attribute. 
+ * 
+ * @jcs:control-tags file="XQuery-tags.xml"
+ * @jcs:jc-jar label="XQuery"
+ *      insert-wizard-class="jcxCreate.ide.XQueryWizard" 
+ *      version="0.8" 
+ *      icon-16="/images/xml.gif" 
+ *      palette-priority="5" 
+ *      group-name="Feature Sample Controls"
+ *      description="Extensible control that creates a jcx and runs an XQuery."
+ *      @editor-info:code-gen control-interface="true"
+  */
+public class XQueryImpl implements XQuery, com.bea.control.Extensible, com.bea.control.ControlSource
+{ 
+    /**
+     * @common:context
+     */
+    com.bea.control.ControlContext context;
+
+    /* 
+     * A String to hold the XQuery expression specified by the control's
+     * user.
+     */
+    String m_expression = null;
+
+    /*
+     * Constants representing annotation and attribute names. The 
+     * jc:query annotation will be written into the JCX file for 
+     * each XQuery expression the control's user associates with a 
+     * control method.
+     */
+	public static final String TAG_XQUERY = "jc:query";
+	public static final String ATTR_EXPRESSION = "expression";
+
+    /*
+     * The invoke method is implemented from the Extensible interface.
+     * It is a key aspect of any control that provides a customizable
+     * interface. When a method on a control's JCX file is called, that
+     * call is delegated to the invoke method. The name and arguments for
+     * the JCX method called are passed to invoke as arguments. Within
+     * the invoke method, you extract and process the method and arguments,
+     * returning a value if appropriate.
+     * 
+     * A JCX file for the XQuery control would contain methods whose argument
+     * is an object containing the XML on which to execute the query. An
+     * annotation on that method would specify the XQuery expression to use.
+     */
+    public Object invoke(Method method, Object[] args) throws Throwable {
+        XmlCursor resultCursor;
+        try{
+             // Create an instance of the class designed to handle the XQuery.
+            XQueryUtil queryUtil = new XQueryUtil();
+
+            // Retrieve the XQuery expression from the annotation in the JCX.
+            m_expression = context.getMethodAttribute(TAG_XQUERY, ATTR_EXPRESSION);
+
+            // Get the XML Stream named by the first parameter.
+            // First look to see if it is a resource in the jar that will be created from this project.
+            // Any non-source files in this project will be moved to the jar by default
+            String filePath = new String().valueOf(args[0]);
+            InputStream iXml= null;
+            if (filePath.substring(0,1).equals("/"))
+                iXml= this.getClass().getClassLoader().getResourceAsStream(filePath);
+                // try as a file
+            if (iXml==null)
+            {
+                File f=new File(filePath);
+                if (f.exists())
+                    iXml = new FileInputStream(f);
+                else 
+                {
+                    throw new ControlException("file not found at " + f.getAbsolutePath());
+                }
+            }
+            // Load the XML using the XMLBeans API.
+            XmlObject instanceDoc = XmlObject.Factory.parse(iXml);
+
+            /*
+             * Pass the value to the XQuery utility class, and return the results
+             * in an XMLBeans XmlCursor object.
+             */
+            resultCursor = queryUtil.runXQueryExpression(instanceDoc, m_expression);
+            return resultCursor;
+        } catch (InvocationTargetException ite) {
+            throw new ControlException("Error while executing the query: " + ite.getMessage(), ite);
+        } catch (Exception e) {
+            throw new ControlException("XQueryControl: Exception while executing expression.", e);
+        }
+    }
+    
+    /*
+     * Implement onException for any unhandled exceptions.
+     */
+    public void context_onException(Exception e, String methodName, Object [] args){
+        throw new ControlException("XQuery control exception in " + methodName + ": ", e);
+    }
+} 

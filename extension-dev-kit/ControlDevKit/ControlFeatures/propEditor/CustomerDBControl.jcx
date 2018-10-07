@@ -1,0 +1,32 @@
+package propEditor; 
+
+import com.bea.control.*;
+import java.sql.SQLException; 
+import java.sql.ResultSet;
+
+/** 
+ * @jc:connection data-source-jndi-name="cgSampleDataSource" 
+ * @jcs:jc-jar display-in-palette="false"
+ */ 
+public interface CustomerDBControl extends com.bea.control.ControlExtension, DatabaseControl 
+{ 
+    /**
+     * @jc:sql statement="SELECT customername FROM customers WHERE customerid={customerID}"
+     */
+    String selectCustomerName(int customerID);
+
+    /**
+     * @jc:sql statement="SELECT itemnumber FROM po_items WHERE orderid={orderID}" array-max-length="100"
+     */
+    ResultSet selectItemNumbersByOrder(int orderID);
+
+    /**
+     * @jc:sql statement="SELECT itemname FROM items WHERE itemnumber={itemNumber}" array-max-length="100"
+     */
+    ResultSet selectItemNameByItemNumber(int itemNumber);
+
+    /**
+     * @jc:sql statement="SELECT orderid FROM po_customers WHERE customerid={customerID}" array-max-length="100"
+     */
+    ResultSet selectOrdersByCustomer(int customerID);
+}

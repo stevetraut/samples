@@ -1,0 +1,81 @@
+package insertWizard; 
+
+import com.bea.control.*;
+import weblogic.management.MBeanHome;
+import weblogic.management.Helper;
+import weblogic.management.WebLogicMBean;
+import weblogic.management.WebLogicObjectName;
+
+/**
+ * The ServerCheck control illustrates how to connect a custom
+ * dialog box that will be used to collect attribute values
+ * when the control is added to a project. This control doesn't
+ * create a JCX file; its property annotations are specified
+ * at the control instance level, inside the control's container.
+ * 
+ * The ServerCheckWizard class provides the hooks needed by WebLogic 
+ * Workshop to show a dialog box, get and set attribute values, and
+ * so on. The ServerCheckWizardPanel provides the insert wizard's user
+ * interface components.
+ * 
+ * This control is designed to use a WebLogic Server MBean to
+ * return the server's domain name. The control's property
+ * attributes are the server's name and URL, as well as a user name
+ * and password to be used if needed.
+ * 
+ * @jcs:control-tags file="ServerCheck-tags.xml"
+ * @jcs:jc-jar label="ServerCheck"
+ *      insert-wizard-class="insertWizard.ide.ServerCheckWizard"
+ *      version="0.8" 
+ *      icon-16="/images/hello_16.gif" 
+ *      icon-32="/images/hello_32.gif"
+ *      palette-priority="6" 
+ *      group-name="Feature Sample Controls"
+ *      description="Illustrates custom insert wizard"
+ *      @editor-info:code-gen control-interface="true"
+ */
+public class ServerCheckImpl implements ServerCheck, com.bea.control.ControlSource
+{ 
+    /**
+     * @common:context
+     */
+    com.bea.control.ControlContext context;
+
+    /* 
+     * Variables to hold values specified by the control's user.
+     */
+    String m_serverURL = null;
+    String m_userName = null;
+    String m_password = null;
+    String m_serverName = null;
+    transient MBeanHome m_localMBean = null;
+
+    /**
+     * The getDomainName method is the control's only operation.
+     * It uses an external class, MBeanUtil, to get the server's 
+     * domain name.
+     * 
+     * @common:operation
+     */
+    public String getDomainName ()
+    {
+        /* 
+         * The context.getControl attribute method retrieves values 
+         * specified in annotations on the control instance declaration.
+         * These annotations are written into the control's container.
+         */
+        m_userName = context.getControlAttribute("jc:server-data","user-name");
+        m_password = context.getControlAttribute("jc:server-data","password");
+        m_serverURL = context.getControlAttribute("jc:server-data","url");
+        m_serverName = context.getControlAttribute("jc:server-data","server-name");
+        
+        try {
+            m_localMBean = MBeanUtil.getMBean(m_userName, m_password, m_serverURL, m_serverName);
+        } catch (IllegalArgumentException iae) {
+            context.getLogger("ServerCheck");
+            throw new ControlException("ServerCheck: Error getting the domain name.", iae);
+        }
+        String domainName = m_localMBean.getDomainName();
+        return domainName;
+    }
+} 

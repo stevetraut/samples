@@ -1,0 +1,47 @@
+package featuresTests;
+
+import com.bea.control.JwsContext;
+import java.util.HashMap;
+import java.util.ArrayList;
+
+/*
+ * This web service provides a way to test the CustomerData control.
+ * By specifying a customer ID as an attribute of that control,
+ * you can use the control to query a database for information about
+ * the customer.
+ * 
+ * The control illustrates how to implement an attribute editing/validation
+ * dialog. To see this control's dialog in use, click the control in 
+ * Design View, then click the ... for the customer-id attribute.
+ */
+public class CustomerDataTest implements com.bea.jws.WebService
+{ 
+
+    /**
+     * @common:control
+     * @jc:customer-db customer-id="987659"
+     */
+    private propEditor.CustomerData thisCustomer;
+
+    /**
+     * Returns the customers name.
+     * 
+     * @common:operation
+     */
+    public String getCustName()
+    {
+        return thisCustomer.getCustomerName();
+    }
+
+    /**
+     * Returns the list of items the customer has purchased.
+     * 
+     * @common:operation
+     */
+    public ArrayList getItemsPurchased()
+    {
+        ArrayList results = new ArrayList();
+        ArrayList items = thisCustomer.getItemsOrdered();
+        return items;
+    }
+} 

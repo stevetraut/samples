@@ -1,0 +1,21 @@
+<extension-definition>
+
+<extension-xml id="urn:com-bea-ide:actions">
+
+<action-ui>
+    <menu id="properties" path="menu/main" priority="100" label="Properties">
+        <action-group id="properties" priority="5" path="menu/properties" />
+    </menu>
+</action-ui>
+
+<action-set>
+    <action class="IdeExtensions.PropertyListener.PropertyListenerAction"
+    label="Property Listener" icon="images/workshop/debugger/icons/debug_watch.gif"
+    show-always="true">
+        <location priority="10" path="menu/properties/default" />
+    </action>
+</action-set>
+
+</extension-xml>	
+    
+</extension-definition>

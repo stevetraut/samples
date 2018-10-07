@@ -1,0 +1,29 @@
+<purchase-order>
+	<customer>
+		<name>Gladys Cravits</name>
+		<address>Anytown, PA</address>
+	</customer>
+	<date>2001-12-17T09:30:47-05:00</date>
+	<line-item>
+		<description>Burnham's Celestial Handbook, Vol 1</description>
+		<per-unit-ounces>5</per-unit-ounces>
+		<price>21.79</price>
+		<quantity>2</quantity>
+	</line-item>
+	<line-item>
+		<description>Burnham's Celestial Handbook, Vol 2</description>
+		<per-unit-ounces>5</per-unit-ounces>
+		<price>19.89</price>
+		<quantity>2</quantity>
+	</line-item>
+	<line-item>
+		<description>Burnham's Celestial Handbook, Vol 3</description>
+		<per-unit-ounces>5</per-unit-ounces>
+		<price>19.89</price>
+		<quantity>1</quantity>
+	</line-item>
+	<shipper>
+		<name>UPS</name>
+		<per-ounce-rate>0.74</per-ounce-rate>
+	</shipper>
+</purchase-order>

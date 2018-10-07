@@ -1,0 +1,7 @@
+<extension-definition>
+	<extension-xml id="urn:com-bea-ide:frame">
+		<frame-view-set>
+			<frame-view class="IdeExtensions.SearchResults.SearchResultsView" label="Documentation Search" icon="images/find_action.gif" askavailable="true"/>
+		</frame-view-set>
+	</extension-xml>
+</extension-definition>

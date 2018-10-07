@@ -1,0 +1,48 @@
+<extension-definition>
+
+    <!-- Defines a document extension for PHP documents.  -->
+    <extension-xml id="urn:com-bea-ide:document">
+        <!-- Specifies the class that the IDE should use to create new instances of this document type. -->
+        <document-handler class="ideExtensions.customProject.PhpDocument"
+            icon="images/workshop/sourceeditor/project/jbc.gif" label="PHP File">
+            <file-extension priority="low">php</file-extension>
+            <!-- Specifies information to use when creating menus and dialogs that will expose a command
+                to create new documents of this type. This includes the categories displayed in the New File
+                dialog. -->
+            <create-template priority="803" createCategories="Shortcut,Common,Web User Interface">
+                <!-- Specifies the text to display in the New File dialog when a PHP file type is selected. -->
+                <description>Creates a new PHP file.</description>
+            </create-template>
+            <!-- Specifies projects attributes that documents of this type support. PHP documents can only be created within
+                projects whose extension.xml contains the attribute "supportsPhp". See the project extension definition below. -->
+            <project-attributes>
+                <requires name="supportsPhp" value="true" />
+            </project-attributes>
+        </document-handler>
+    </extension-xml>
+
+    <!-- Defines a project type extension for PHP projects. -->
+    <extension-xml id="urn:com-bea-ide:project">
+        <!-- Specifies high-level user interface for the project type, such as the folder
+            images to use in the Application window. -->
+        <project-type id="urn:com-bea-ide:project.type:php" label="PHP"
+            icon="images/workshop/sourceeditor/project/html.gif"
+            openfoldericon="images/workshop/workspace/project/web_proj_o.gif"
+            closedfoldericon="images/workshop/workspace/project/web_proj_c.gif">
+            <!-- Specifies an attribute that can be used for multiple purposes. For example, the supportsPhp
+                    attribute is used to tell the IDE that PHP documents can only be created in projects
+                    of this type. It is also used by the PhpProjectListener to locate projects of this type
+                    in the application. -->
+            <attribute name="supportsPhp" value="true" />
+            <!-- Specifies a build driver to use for PHP projects. In particular, the driver class specified
+                    here knows how to generate an Ant build.xml when the user requests one. -->
+            <driver type="com.bea.ide.workspace.project.IBuildDriver"
+                class="ideExtensions.customProject.PhpProjectBuildDriver" />
+            <!-- Specifies a project driver for PHP projects. Through a project driver, you can associate code with projects of 
+                    this type for as long as they exist in the open application. -->
+            <driver type="com.bea.ide.workspace.project.IProjectDriver"
+                class="ideExtensions.customProject.PhpProjectDriver" />
+        </project-type>
+    </extension-xml>
+
+</extension-definition>

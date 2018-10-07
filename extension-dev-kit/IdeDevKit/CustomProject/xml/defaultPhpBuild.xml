@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a template for generating an Ant build file. The values
+    preceding with an @ sign are replaced with contextually-
+    appropriate values by the build driver. The PhpProjectBuildDriver
+    class extends DefaultBuildDriver, inherited from that class the
+    functions needed to convert these placeholders to useful values. 
+    See PhpProjectBuildDriver for more information. 
+    
+    The build target of this file merely zip the projects contents
+    and puts the ZIP file in the project's root directory.
+    -->
+<project name="PHP project" default="build">
+	<property environment="env"/>
+	<!-- These properties are auto-set to match local values when executed within the IDE. -->
+    <!-- Note that most of the following properties aren't actually used in this file's
+        targets. They're here to display values that WebLogic Workshop replaces. -->
+	<property name="beahome.local.directory" value="@beahome.local.directory"/>
+	<property name="platformhome.local.directory" value="@platformhome.local.directory"/>
+	<property name="app.local.directory" value="@app.local.directory"/>
+	<property name="project.local.directory" value="@project.local.directory"/>
+	<!--end auto properties -->
+
+	<property name="dest.path" value="${project.local.directory}"/>
+	<property name="output.filename" value="@output.filename"/>
+
+	<target name="build" description="Zip this project and copy the resulting file to the project root.">
+		<delete file="${dest.path}/${output.filename}" failonerror="false"/>
+		<mkdir dir="${dest.path}"/>
+		<zip destfile="${dest.path}/${output.filename}" basedir="${dest.path}" includes="**/*.*" encoding="UTF8">
+			<zipfileset dir="${project.local.directory}" includes="*.*"/>
+        </zip>
+	</target>
+
+	<target name="clean">
+		<delete file="${dest.path}/${output.filename}" failonerror="false"/>
+	</target>
+</project>

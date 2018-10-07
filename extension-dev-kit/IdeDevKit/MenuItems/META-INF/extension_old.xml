@@ -1,0 +1,47 @@
+<extension-definition>
+
+<extension-xml id="urn:com-bea-ide:actions">
+
+<action-ui>
+    <menu id="favorites" path="menu/main" priority="100" label="Favorites">
+        <action-group id="favorites" priority="5" path="menu/favorites">
+            <menu id="favoritesMenu" priority="10" label="Links">
+                <action-group id="favoritesSubMenu1" priority="10" />
+                <action-group id="favoritesSubMenu2" priority="10" generator="IdeExtensions.MenuItems.FavoritesGenerator" />
+            </menu>
+        </action-group>
+        <action-group id="default" priority="10" />
+    </menu>
+</action-ui>
+
+<action-set>
+    <action class="IdeExtensions.MenuItems.AddFavoriteAction"
+    label="Add Favorite" icon="images/workshop/debugger/icons/debug_watch.gif"
+    show-always="true">
+        <location priority="10" path="menu/favorites/default" />
+    </action>
+    <action class="IdeExtensions.MenuItems.DeleteFavoriteAction"
+    label="Delete Favorite" icon="images/workshop/debugger/icons/debug_watch.gif"
+    show-always="true">
+        <location priority="10" path="menu/favorites/default" />
+    </action>
+    <action class="IdeExtensions.MenuItems.LaunchBrowserAction1"
+    label="http://www.bea.com" icon="images/workshop/debugger/icons/debug_watch.gif"
+    show-always="true">
+        <location priority="10" path="menu/favorites/favoritesMenu/favoritesSubMenu1" />
+    </action>
+    <action class="IdeExtensions.MenuItems.LaunchBrowserAction2"
+    label="http://www.google.com" icon="images/workshop/debugger/icons/debug_watch.gif"
+    show-always="true">
+        <location priority="10" path="menu/favorites/favoritesMenu/favoritesSubMenu1" />
+    </action>
+    <action class="IdeExtensions.MenuItems.LaunchBrowserAction3"
+    label="http://www.yahoo.com" icon="images/workshop/debugger/icons/debug_watch.gif"
+    show-always="true">
+        <location priority="10" path="menu/favorites/favoritesMenu/favoritesSubMenu1" />
+    </action>  
+</action-set>
+
+</extension-xml>	
+    
+</extension-definition>

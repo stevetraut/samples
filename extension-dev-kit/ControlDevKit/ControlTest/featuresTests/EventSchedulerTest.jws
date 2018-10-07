@@ -1,0 +1,76 @@
+package featuresTests; 
+
+import com.bea.control.JwsContext;
+import java.util.Date;
+
+/* 
+ * This web service uses the EventScheduler control to request notification
+ * after a specified interval. This service pass the interval from the client
+ * to the control, which in turn schedules a callback based on the interval.
+ */
+public class EventSchedulerTest implements com.bea.jws.WebService
+{ 
+    public Callback callback;
+
+    /**
+     * @common:control
+     */
+    private controlEvents.EventScheduler scheduleControl;
+
+    /** @common:context */ 
+    JwsContext context; 
+
+    /**
+     * The setWakeUpCall method provides a place for clients to specify the time
+     * after which they would like to receive the call.
+     * 
+     * To test control, run the web service. Enter a value in milliseconds
+     * as the intervalInMilliseconds parameter (eg, 5000 for 5 seconds).
+     * Click the setWakeUpCall button, then click Refresh until a response
+     * is displayed.
+     * 
+     * @common:operation
+     * @jws:conversation phase="start"
+     */
+    public void setWakeUpCall(long intervalInMilliseconds)
+    {
+        scheduleControl.setAlarm(intervalInMilliseconds);
+    }
+
+    /*
+     * This callback handler receives the alarm notification from the 
+     * EventScheduler control. It packages the time value received
+     * into a message, then sends the message to its client through
+     * its onTimeToWakeUp callback.
+     */
+    public void scheduleControl_onAlarmRinging(java.lang.String responseMessage, long time)
+    {
+        callback.onTimeToWakeUp(responseMessage + " You scheduled a wake-up call for " +
+            new Date(time).toLocaleString() + ". It is now " + new Date().toLocaleString());
+    }
+
+    /**
+     * The cancelWakeUp method provides a way for clients to cancel
+     * the wake up call. This calls an EventScheduler method that
+     * cancels the scheduled callback.
+     * 
+     * @common:operation
+     * @jws:conversation phase="finish"
+     */
+    public void cancelWakeUp()
+    {
+        scheduleControl.cancelAlarm();
+    }
+
+    /*
+     * The onTimeToWakeUp callback notifies clients that the interval has
+     * passed.
+     */
+    public interface Callback
+    {
+        /**
+         * @jws:conversation phase="finish"
+         */
+        void onTimeToWakeUp(String response);
+    }
+} 

@@ -1,0 +1,63 @@
+package controlEvents; 
+
+import com.bea.control.*;
+
+/**
+ * EventRaiser illustrates how you can pass a callback 
+ * from a nested control through to a client. EventRaiser nests
+ * a Timer control. When that Timer fires its onTimeout, that
+ * callback is simply sent directly to the client through a
+ * callback that EventRaiser exposes. 
+ * 
+ * @jcs:jc-jar label="EventRaiser"
+ *          version="1.0" 
+ *          icon-16="/images/buffer_16.gif" 
+ *          icon-32="/images/buffer_32.gif" 
+ *          group-name="Feature Sample Controls" 
+ *          description="Starts a timer and calls raiseEvent to callback its container"
+ *          palette-priority="7" 
+ */
+public class EventRaiserImpl implements EventRaiser, com.bea.control.ControlSource
+{
+    /**
+     * @jc:timer timeout="5 seconds"
+     * @common:control
+     */
+    private TimerControl backEndTimer;
+
+    /**
+     * @common:context
+     */
+    com.bea.control.ControlContext context;
+
+    /**
+     * The startTimer method provides a way for EventRaiser's
+     * clients to start its Timer.
+     * 
+     * @common:operation
+     */
+    public void startTimer()
+    {
+        backEndTimer.start();
+    }
+
+    /* 
+     * This is the handler for the Timer control's onTimeout
+     * callback. When that callback is received, it is sent directly
+     * to EventRaiser's client.
+     */
+    public void backEndTimer_onTimeout(long arg0)
+    {
+        try{
+            /* 
+             * The raiseEvent method tells WebLogic Server to 
+             * forward the onTimeout callback to an EventRaiser
+             * callback *that has the same name*.
+             */
+            context.raiseEvent();
+        } catch (Exception e){
+            throw new ControlException("EventRaiser exception.", e);
+        }
+    }
+ 
+} 

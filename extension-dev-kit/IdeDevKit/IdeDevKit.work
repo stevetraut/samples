@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<application>
+  <option name="excludedirs" value="cvs;sccs;rcs;" />
+  <option name="excludefiles" value="\..*|.*\.[0-9]+|wlw_[0-9]+\..*" />
+  <option name="excludefilesFromEar" value="[default]" />
+  <option name="name" value="IdeDevKit" />
+  <option name="prerelease-version" value="2" />
+  <option name="server.path" value="${weblogic.home}/samples/domains/workshop" />
+  <option name="version" value="1" />
+  <components>
+    <component name="com.bea.ide.debug.IDebugClient">
+      <option name="SrcPath0_currproject_" value="Current Project" />
+      <option name="SrcPath1_project_" value="ToolbarButton" />
+      <option name="SrcPath2_project_" value="MenuItems" />
+      <option name="SrcPath3_project_" value="FrameViewSimple" />
+      <option name="SrcPath4_project_" value="CustomProject" />
+      <option name="SrcPath5_project_" value="SearchResults" />
+      <option name="SrcPath6_project_" value="PropertyListener" />
+      <option name="SrcPath7_project_" value="PopupAction" />
+      <option name="SrcPath8_project_" value="TocView" />
+    </component>
+    <component name="com.bea.ide.workspace.IWorkspace">
+      <node name="ApplicationBuild" />
+      <node name="EARBuild" />
+    </component>
+    <component name="com.bea.portal.ide.actions.OpenAdministrationPageAction" />
+    <component name="com.bea.portal.ide.actions.OpenAsXMLAction" />
+  </components>
+  <projects>
+    <project name="CustomProject">
+      <option name="project.path" value="./CustomProject" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="IdeExtensions.PopupAction.FTPPrefsPanel">
+          <option name="hostname" value="lll" />
+          <option name="password" value="1Mi4NyGvN3291yi1f7Zuqg==" />
+          <option name="port" value="" />
+          <option name="remote.directory" value="" />
+          <option name="username" value="" />
+        </component>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/wlw-ide.jar" />
+          <option name="source.path" value="" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/jdom.jar;${workshop.home}/lib/wlw-ide-schemas.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="false" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="com.bea.portal.ide.rules.server.ConnectionInfoManager">
+          <option name="useAppSettings" value="true" />
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="jarFilename" value="CustomProject.jar" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${CustomProject.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+    <project name="FrameViewSimple">
+      <option name="project.path" value="./FrameViewSimple" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/wlw-ide.jar" />
+          <option name="source.path" value="" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/jdom.jar;${workshop.home}/lib/wlw-ide-schemas.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="false" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="jarFilename" value="FrameViewSimple.jar" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${FrameViewSimple.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+    <project name="MenuItems">
+      <option name="project.path" value="./MenuItems" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/wlw-ide.jar" />
+          <option name="source.path" value="" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/jdom.jar;${workshop.home}/lib/wlw-ide-schemas.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="false" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="jarFilename" value="MenuItems.jar" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${MenuItems.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+    <project name="PopupAction">
+      <option name="project.path" value="./PopupAction" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/wlw-ide.jar;${PopupAction.root}/lib/commons-net-1.0.0.jar" />
+          <option name="source.path" value="" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/jdom.jar;${workshop.home}/lib/wlw-ide-schemas.jar;${PopupAction.root}/lib/commons-net-1.0.0.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="true" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="com.bea.portal.ide.rules.server.ConnectionInfoManager">
+          <option name="useAppSettings" value="true" />
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${PopupAction.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+    <project name="PropertyListener">
+      <option name="project.path" value="./PropertyListener" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/wlw-ide.jar" />
+          <option name="source.path" value="" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/jdom.jar;${workshop.home}/lib/wlw-ide-schemas.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="false" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="jarFilename" value="PropertyListener.jar" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${PropertyListener.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+    <project name="SearchResults">
+      <option name="project.path" value="./SearchResults" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/helputil.jar;${workshop.home}/lib/lucene-1.3-rc1.jar" />
+          <option name="source.path" value="" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/helputil.jar;${workshop.home}/lib/jdom.jar;${workshop.home}/lib/lucene-1.3-rc1.jar;${workshop.home}/lib/wlw-ide-schemas.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="false" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="jarFilename" value="SearchResults.jar" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${SearchResults.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+    <project name="TocView">
+      <option name="project.path" value="./TocView" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/lib/helputil.jar;${workshop.home}/wlw-ide.jar" />
+          <option name="source.path" value="${TocView.root}/src" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/helputil.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="false" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${TocView.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+    <project name="ToolbarButton">
+      <option name="project.path" value="./ToolbarButton" />
+      <option name="type" value="urn:com-bea-ide:project.type:Java" />
+      <components>
+        <component name="com.bea.ide.JavaCompiler">
+          <option name="class.path" value="${workshop.home}/wlw-ide.jar" />
+          <option name="source.path" value="" />
+        </component>
+        <component name="com.bea.ide.debug.IDebugData">
+          <option name="debug.appendLibrariesClassPath" value="true" />
+          <option name="debug.appendServerClassPath" value="true" />
+          <option name="debug.attachProc.server" value="" />
+          <option name="debug.attachProc.shmemAddress" value="" />
+          <option name="debug.attachProc.type" value="0" />
+          <option name="debug.buildBeforeDebugging" value="true" />
+          <option name="debug.class.path" value="${workshop.home}/wlw-ide.jar;${workshop.home}/lib/jdom.jar;${workshop.home}/lib/wlw-ide-schemas.jar" />
+          <option name="debug.debuggingType" value="NewProcess" />
+          <option name="debug.home.path" value="${workshop.home}" />
+          <option name="debug.main" value="workshop.core.Workshop" />
+          <option name="debug.params" value="" />
+          <option name="debug.port" value="" />
+          <option name="debug.smartDebugging" value="false" />
+          <option name="debug.vmParams" value="-ea -Xmx512m -Xms128m -Dsun.java2d.d3d=false -Djava.system.class.loader=workshop.core.AppClassLoader" />
+          <node name="com.bea.ide.debug.IDebugData.classList">
+            <option name="Generated classes" value="$Proxy*, *_wf$*, *_wf" />
+            <option name="JDK classes" value="javax.*, java.*, sun.*, com.sun.*" />
+            <option name="WebLogic Server classes" value="weblogic.*, weblogicx.*, com.pointbase.*, com.bea.*, COM.jrockit, com.octetstring.*, com.bluecast.*, netscape.ldap.*" />
+            <option name="WebLogic Workshop classes" value="knex.*, workshop.*, javelin.*" />
+            <option name="XML classes" value="org.apache.*, XMLRuntime.*, org.xml.*, org.xmlsoap.schemas.*" />
+          </node>
+        </component>
+        <component name="workshop.workspace.project.build.JavaBuilderPrefs">
+          <option name="dir.path" value="" />
+          <option name="jarFilename" value="ToolbarButton.jar" />
+          <option name="useJar" value="false" />
+        </component>
+        <component name="workshop.workspace.project.build.ProjectBuilderPrefs">
+          <option name="ant.classpath" value="" />
+          <option name="ant.path" value="${ToolbarButton.root}/build.xml" />
+          <option name="buildTarget" value="build" />
+          <option name="useAnt" value="true" />
+        </component>
+      </components>
+    </project>
+  </projects>
+  <node name="roles" />
+</application>
+

@@ -1,0 +1,77 @@
+package controlEvents; 
+
+import com.bea.control.*;
+import java.util.Date;
+
+/**
+ * EventScheduler illustrates how you can schedule a control's
+ * callbacks to occur at specified times. This example receives
+ * a request to send a callback after a specified interval. The
+ * control's client passes in the interval. Note that this control
+ * does not use a Timer control.
+ * 
+ * @jcs:jc-jar palette-priority="7" label="EventScheduler"
+ *          version="1.0" 
+ *          icon-16="/images/buffer_16.gif" 
+ *          icon-32="/images/buffer_32.gif" 
+ *          group-name="Feature Sample Controls" 
+ *          description="Schedules a callback at a point in the future"
+ */
+public class EventSchedulerImpl implements EventScheduler, com.bea.control.ControlSource
+{ 
+    public Callback callback;
+
+    /**
+     * @common:context
+     */
+    com.bea.control.ControlContext context;
+
+    /**
+     * The setAlarm method receives an interval value, then uses
+     * that value to schedule its callback. The callback will occur
+     * on or after the interval's passing.
+     * 
+     * @common:operation
+     */
+    public void setAlarm(long delayInMsecs)
+    {
+        /* 
+         * The alarm is set for the current time plus the interval
+         * specified by the client.
+         */
+        long alarmTime = new Date().getTime() + delayInMsecs;
+
+        /* Arguments for the scheduled callback are stored in 
+         * an Object array. That array is passed as an argument
+         * to the scheduleEvent method.
+         */
+        Object[] callbackArgs = new Object[2];
+        callbackArgs[0] = "Time to wake up.";
+        callbackArgs[1] = new Long(alarmTime);
+
+        /*
+         * The scheduleEvent method schedules the callback's firing by 
+         * specifying the callback's name, its arguments (as an Object array),
+         * the time at/after which the callback should be sent, and a boolean
+         * value indicating whether the callback should be ignored (and no
+         * exception generated) if the callback is sent to a finished
+         * instance.
+         */
+        context.scheduleEvent("onAlarmRinging", callbackArgs, alarmTime, true);
+    }
+
+    /**
+     * cancelAlarm provides a way for clients to cancel the alarm.
+     * The cancelEvents method specifies which scheduled callback should
+     * be canceled.
+     * 
+     * @common:operation
+     */
+    public void cancelAlarm()
+    {
+        context.cancelEvents("onAlarmRinging");
+    }
+
+ 
+
+} 

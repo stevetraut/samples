@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Java project build" default="build">
+  <property environment="env"/>
+  
+  <property name="dest.path" value="${java.io.tmpdir}/.wlw-temp/wlw_compile23617" />
+  <property name="src.path" value="${project.local.directory}" />
+  <property name="output.filename" value="searchResults.jar" />
+  <property name="output.directory" value="${app.local.directory}/APP-INF/lib" />
+
+  <path id="task.classpath">
+    <fileset dir="${platformhome.local.directory}">
+      <include name="javelin/lib/javelin.jar"/>
+      <include name="common/lib/log4j.jar" />
+      <include name="server/lib/knex.jar" />
+      <include name="server/lib/xbean.jar" />
+      <include name="server/lib/xqrl.jar" />
+      <include name="server/lib/weblogic.jar"/>
+      <include name="workshop/wlw-ide.jar"/>
+      <include name="workshop/lib/lucene-1.3-rc1.jar"/>
+      <include name="workshop/lib/helputil.jar"/>
+    </fileset>
+  </path>
+  
+  <taskdef name="javelin" classname="com.bea.compiler.ant.Javelin" classpathref="task.classpath"/>
+  
+  <target name="build" description="Build this project and copy it to Libraries">
+    <delete dir="${dest.path}" failonerror="false"/>
+    
+    <mkdir dir="${dest.path}" />
+    <mkdir dir="${output.directory}" />
+    
+    <!-- if ide.class.path is set, then class.path is set to it. -->
+    <condition property="class.path" value="${ide.class.path}">
+      <isset property="ide.class.path"/> 
+    </condition>
+    <!-- this property call is ignored if the condition above is met -->
+    <property name="class.path" value="${platformhome.local.directory}/workshop/lib/helputil.jar;${beahome.local.directory}/jdk141_05/jre/lib/rt.jar;${beahome.local.directory}/jdk141_05/lib/tools.jar;${platformhome.local.directory}/server/lib/knex.jar;${platformhome.local.directory}/common/lib/log4j.jar;${platformhome.local.directory}/server/lib/debugging.jar;${platformhome.local.directory}/javelin/lib/javelin.jar;${platformhome.local.directory}/server/lib/wlw-lang.jar;${platformhome.local.directory}/server/lib/weblogic.jar;${platformhome.local.directory}/common/eval/pointbase/lib/pbserver44.jar;${platformhome.local.directory}/common/eval/pointbase/lib/pbclient44.jar;${platformhome.local.directory}/server/lib/webservices.jar;${platformhome.local.directory}/server/lib/webserviceclient.jar;${platformhome.local.directory}/server/lib/webserviceclient+ssl.jar;${platformhome.local.directory}/server/lib/wli.jar;${platformhome.local.directory}/server/lib/xbean.jar;${platformhome.local.directory}/server/lib/xqrl.jar;${platformhome.local.directory}/server/lib/netui/netui-compiler.jar;${platformhome.local.directory}/workshop/wlw-ide.jar;"/>
+    <javelin
+      classpath="${class.path}"
+      sourcepath="${src.path}"
+      destdir="${dest.path}"
+      failonerror="true"
+      debug="true">
+     <fileset dir="${project.local.directory}">
+        <exclude name="META-INF/" />
+      </fileset>
+    </javelin>
+
+    <zip destfile="${output.directory}/${output.filename}"
+         basedir="${dest.path}"
+         includes="**/*.*"
+         encoding="UTF8"> <!-- jar filenames are UTF8-encoded -->
+      <zipfileset dir="${project.local.directory}" excludes="build.xml,**/CVS/**,**/*.java,${output.filename}" includes="**/*.*"/>
+    </zip>
+    
+    <zip destfile="${platformhome.local.directory}/workshop/extensions/${output.filename}"
+         basedir="${dest.path}"
+         includes="**/*.*"
+         encoding="UTF8"> <!-- jar filenames are UTF8-encoded -->
+      <zipfileset dir="${project.local.directory}" excludes="build.xml,**/CVS/**,**/*.java,${output.filename}" includes="**/*.*"/>
+    </zip>
+    
+  </target>
+
+  <target name="clean">
+      <delete file="${output.directory}/${output.filename}" failonerror="false"/>
+  </target>
+
+</project>
