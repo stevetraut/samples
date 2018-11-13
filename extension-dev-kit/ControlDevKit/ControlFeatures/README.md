@@ -2,6 +2,8 @@
 
 These folders each contain code illustrating a different aspect of custom control development for WebLogic Workshop. 
 
+Folder | Description
+------ | -----------
 [controlEvents](controlEvents) | Control events are simply callbacks. The files here are Java interface and implementation files for requesting and handling callbacks.
 [images](images) | Images displayed in the WebLogic Workshop IDE for the sample controls.
 [insertWizard](insertWizard) | Java Swing code implementing UI for a dialog and a wizard to present to the web service developer when they add an instance of this control to the IDE. Extends a base class provided with the SDK.
