@@ -6,17 +6,17 @@ Generally, the code in these directories is "for display purposes only". That is
 
 ## api-baas
 
-The [`api-baas`](api-baas) directory contains three samples illustrating roughly the same functionality in the Apigee API BaaS product (slated for EOL in June 2019). Each sample is coded to use an API BaaS SDK supporting a particular mobile platform -- Android, IOS, and JavaScript.
+The [`api-baas`](api-baas) directory contains three samples, each illustrating roughly the same functionality in the Apigee API BaaS product ([slated for EOL](https://docs.apigee.com/release/notes/api-baas-eol) in June 2019). Each sample is coded to use a different API BaaS SDK supporting a mobile platform -- Android, IOS, and JavaScript.
 
-API BaaS is a NoSQL data store. The samples were designed to illustrate how you could use API BaaS as a backend by incorporating the SDKs into your mobile apps.
+API BaaS is backend-as-a-service designed to support mobile apps. It includes a NoSQL data store and other services such as push notifications and geolocation. The samples were designed to illustrate how you could use API BaaS as a backend by incorporating the SDKs into your mobile apps.
 
-These samples are snapshots from code I wrote in 2013; they each have later versions running on later SDKs. API BaaS lives on as the open source project [Usergrid](http://usergrid.apache.org/).
+These samples are snapshots from code I wrote in 2013; they each have later versions running on later SDKs. A form of API BaaS lives on as the open source project [Usergrid](http://usergrid.apache.org/), from which API BaaS originated.
 
 ## extension-dev-kit
 
-The [`extension-dev-kit`](extension-dev-kit) directory contains code illustrating how to extend the WebLogic Workshop development environment. 
+The [`extension-dev-kit`](extension-dev-kit) directory contains code illustrating how to extend the WebLogic Workshop development environment. WebLogic Workshop was an IDE that began as a cockpit for building SOAP web services, and later supported building other kinds of J2EE components.
 
-Using the two kits, developers could develop custom artifacts (such as custom controls) or extend the WebLogic Workshop IDE, which was based on Java Swing.
+Using the two kits in the Extension Dev Kit, developers could develop custom components with which developers could build server-side apps, or could extend the WebLogic Workshop IDE, which was based on Java Swing.
 
 ## weblogic-workshop
 

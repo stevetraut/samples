@@ -1,7 +1,6 @@
 # UsersAndGroups Sample App
 
-This sample illustrates how to call and handle response values from Android SDK methods
-that work with users and groups in an app services application. It shows:
+This sample illustrates how to call API BaaS Android SDK methods for working with user and group entities in an API BaaS application. The sample illustrates:
 
 - How to add users and groups to the application.
 - How to list users and groups.
