@@ -3,7 +3,7 @@ package Chapter11;
 import weblogic.jws.control.JwsContext;
 
 /**
- * A web service that simply 
+ * A web service that simply receives XML describing purchases
  */
 public class POTranslator
 { 

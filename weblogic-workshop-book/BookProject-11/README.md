@@ -1,6 +1,8 @@
 # WebLogic Workshop Book Chapter 11 Sample
 
-This directory contains a sample illustrating how to use JavaScript to access and create XML for use with a web service. The sample features an enhanced version of WebLogic Workshop XML maps. With an XML map, you could transform XML between the shapes used by the client and shapes expected by the web services. In the enhanced variety, the XML map called out to JavaScript that handled the transformation.
+This directory contains a sample illustrating how to use JavaScript to access and create XML for use with a web service. The sample features an enhanced version of WebLogic Workshop XML maps. 
+
+WebLogic Workshop had default rules for converting between XML and Java, but those weren't useful if the client's request XML converted into an XML shape that didn't cleanly fit the Java types in an operation method's parameters. With an XML map, you could transform XML between the shapes used by the client and shapes expected by the web services. In the enhanced variety, the XML map called out to JavaScript that handled the transformation.
 
 JavaScript XML maps in WebLogic Workshop had two features that made it easier to transform between XML and the Java types known to the web service: support for Java types in JavaScript and an early version of ECMAScript for XML (E4X). In JavaScript, you could import the Java types that containing data as the web service handled it. E4X (deprecated in 2014) was a way to handle XML as a native JavaScript type. The combination of these two features made it easier to transform between Java and XML using accessors only.
 
