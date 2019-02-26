@@ -4,12 +4,19 @@ import weblogic.jws.control.JMSControl;
 import java.io.Serializable; 
 
 /** 
- *   @jws:jms type="queue" send-jndi-name="ch10.credit.requestQ" receive-jndi-name="ch10.credit.ratingQ" 
- *   connection-factory-jndi-name="weblogic.jws.jms.QueueConnectionFactory" 
+ * Represents the JMS control for use in a web service. The 
+ * control's properties specify the JMS queue with which this
+ * control interacts.
+ * 
+ * @jws:jms type="queue" send-jndi-name="ch10.credit.requestQ" receive-jndi-name="ch10.credit.ratingQ" 
+ * connection-factory-jndi-name="weblogic.jws.jms.QueueConnectionFactory" 
  */ 
 public interface CreditCheckControl extends JMSControl 
 { 
     /** 
+     * Requests credit approval by sending the proposed purchase
+     * total and customer ID to the Java Message Service.
+     * 
      * If you would like to use XML maps to give the body of the outgoing 
      * message a specific XML shape, you may define a method in this file and 
      * annotate it with an XML map. For example, if you want the payload 
@@ -51,6 +58,10 @@ public interface CreditCheckControl extends JMSControl
      * follows. 
      */ 
 
+    /**
+     * A callback through which a web service can receive
+     * a reply from this control.
+     */
     interface Callback extends JMSControl.Callback 
     { 
         /** 

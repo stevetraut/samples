@@ -4,13 +4,35 @@ import weblogic.jws.control.JwsContext;
 import java.util.ArrayList;
 import com.onlinestore.item.Item;
 
+/**
+ * Represents an online store web service. The service features a means to 
+ * interact with a shopping cart and to purchase items placed in the cart.
+ * 
+ * This is a "conversational" web service, in which asynchronous communication 
+ * is supported by correlating each request with the client making 
+ * the request. Methods participating in the converation are marked with 
+ * an @jws:conversation annotation. These provide the logic behind
+ * web service operations. 
+ */
 public class OnlineStore
 {
     public Callback callback;
 
+    /**
+     * Represents callbacks from this web service.
+     */
     public interface Callback
     {
         /**
+         * A callback function for notifying the client
+         * whether their transaction has been approved.
+         * 
+         * This function finishes the conversation begun
+         * with the {startShoppping} method. When the conversation
+         * finishes, the server releases state and the conversation
+         * ID that was used to correlate requests from a given
+         * client.
+         * 
          * @jws:conversation phase="finish"
          */
         public void onPurchaseApproved(String message, 
@@ -18,11 +40,17 @@ public class OnlineStore
     }
 
     /**
+     * An instance of the JMS control that sends credit check requests to 
+     * the Java Message Service (JMS).
+     * 
      * @jws:control
      */
     private CreditCheckControl creditCheckJMS;
 
     /**
+     * An instance of the EJB control that sends a request for inventory
+     * to an EJB entity bean.
+     * 
      * @jws:control
      */
     private InventoryControl inventoryEJB;
@@ -46,12 +74,23 @@ public class OnlineStore
     private String customerID;
 
     /**
+     * Begins the transaction by initializing a new shopping cart.
+     * 
+     * This method is annotated to start the conversation. A request to this
+     * method prompts the server to begin tracking state for all conversational 
+     * requests to this web services. The server also creates a conversation 
+     * ID to correlate requests from a given client across a session
+     * with this web service.
+     * 
+     * @param name The customer's name.
+     * @parame customerNumber The customer's ID.
+     * 
      * @jws:operation 
      * @jws:conversation phase="start"
      */
     public String startShopping(String name, String customerNumber)
     {
-        customerID = customerNumber;
+        this.customerID = customerNumber;
         this.name         = name;
         this.shoppingCart = new ArrayList();
         
@@ -59,6 +98,15 @@ public class OnlineStore
     }
     
     /** 
+     * Retieves items in the catalog for browsing. These are the items that
+     * the customer can add to their shopping cart. The array of items
+     * is retrieved using an EJB control.
+     * 
+     * This method continues the conversation started with the {startShopping}
+     * method. 
+     * 
+     * @return An array of items from the catalog.
+     * 
      * @jws:operation
      * @jws:conversation phase="continue"
      */
@@ -91,6 +139,10 @@ public class OnlineStore
     }
     
     /**
+     * Adds an item to the shopping cart.
+     * 
+     * @param code Identifier of the item to add to the shopping cart.
+     * 
      * @jws:operation 
      * @jws:conversation phase="continue"
      */
@@ -107,6 +159,10 @@ public class OnlineStore
     }
 
     /**
+     * Removes an item from the shopping cart.
+     * 
+     * @param index Index of the item to remove.
+     * 
      * @jws:operation 
      * @jws:conversation phase="continue"
      */
@@ -120,6 +176,10 @@ public class OnlineStore
     }
     
     /**
+     * Retrieves a list of the items currently in the shopping cart.
+     * 
+     * @return An array of the items in the cart.
+     * 
      * @jws:operation
      * @jws:conversation phase="continue"
      */
@@ -133,6 +193,17 @@ public class OnlineStore
     }
 
     /**
+     * Performs a customer checkout by totaling the prices
+     * of items in the shopping cart, then sending that value
+     * for a "credit check" (simply checking to see if the total)
+     * is below a static value in the CreditCheck bean.
+     * 
+     * This method uses the JMS control to send a approval request
+     * to JMS, which will forward it to an EJB listening for a
+     * request. The EJB processes the request, then sends its
+     * response back to JMS, which forwards it to the 
+     * {creditCheckJMS_onApprovalReceived} callback.
+     * 
      * @jws:operation
      * @jws:conversation phase="continue"
      */
@@ -153,6 +224,13 @@ public class OnlineStore
         creditCheckJMS.getApproval(total, customerID);
     }
 
+    /**
+     * A function to receive a callback from the JMS control. The 
+     * <controlName>_<callbackName> naming convention ensures that the callback
+     * will be routed to this function.
+     * 
+     * @param isApproved true if the purchase is approved; otherwise, false.
+     */
     private void creditCheckJMS_onApprovalReceived(boolean isApproved)
     {
         /* 

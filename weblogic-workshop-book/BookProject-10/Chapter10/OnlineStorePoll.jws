@@ -9,9 +9,18 @@ import weblogic.jws.control.TimerControl;
 import java.util.Vector;
 import Chapter10.OnlineStoreControl;
 
+/**
+ * A web service that wraps the OnlineStore service, providing 
+ * polling interface for clients to call. This type of service
+ * would be needed to support clients that are unable to 
+ * recieve callbacks.
+ * 
+ * Most of the methods here merely delegate to corresponding
+ * methods of OnlineStore.jws. The getResults method provides a
+ * way for clients to get their results.
+ */
 public class OnlineStorePoll
 {
-
 
     /**
      * @jws:control
@@ -111,6 +120,10 @@ public class OnlineStorePoll
     }
 
     /**
+     * Returns results of a purchase to the client. This
+     * method provides a way for clients to request their 
+     * results if they don't support callbacks.
+     * 
      * @jws:operation
      * @jws:conversation phase="finish"
      */

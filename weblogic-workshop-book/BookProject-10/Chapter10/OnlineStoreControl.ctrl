@@ -5,15 +5,24 @@ import weblogic.jws.control.ServiceControl;
 import com.onlinestore.item.Item;
 
 /**
+ * Represents a service control to use for making calls
+ * to the OnlineStore web service. 
+ * 
  * @jws:location http-url="OnlineStore.jws" jms-url="OnlineStore.jws"
  * @jws:wsdl file="#OnlineStoreWsdl"
  */
 public interface OnlineStoreControl extends ServiceControl
 {
-    
+
+    /**
+     * Represents callbacks from this control.
+     */
     public interface Callback
     {
         /**
+         * A callback to send purchase approval information from 
+         * this control to a web service that contains it.
+         * 
          * @jws:conversation phase="finish"
          */
         public void onPurchaseApproved (java.lang.String message, Item[] itemsPurchased);
@@ -21,6 +30,8 @@ public interface OnlineStoreControl extends ServiceControl
     }
 
     /**
+     * 
+     * 
      * @jws:conversation phase="start"
      */
     public java.lang.String startShopping (java.lang.String name, java.lang.String customerNumber);
