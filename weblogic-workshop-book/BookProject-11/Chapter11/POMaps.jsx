@@ -5,6 +5,9 @@
  * with JavaScript in WebLogic Workshop does not support
  * importing entire packages with the * symbol. You must
  * specify classes by name.
+ * 
+ * Code in this sample uses an early form of ECMAScript for XML
+ * (E4X) to access and construct XML.
  */
 import Chapter11.POTranslator.Address;
 import Chapter11.POTranslator.Item;

@@ -2,11 +2,17 @@ package Chapter11;
 
 import weblogic.jws.control.JwsContext;
 
+/**
+ * A web service that simply 
+ */
 public class POTranslator
 { 
     /** @jws:context */ 
     JwsContext context; 
 
+    /**
+     * A type to capture values to return to the client.
+     */
     public static class PurchaseOrder
     {
         public PurchaseOrder() {}
@@ -16,7 +22,10 @@ public class POTranslator
         public Address billingAddr;
         public Item[] items;
     }
-    
+
+    /**
+     * A type to capture address information from the client.
+     */
     public static class Address
     {
         public Address() {}
@@ -27,7 +36,10 @@ public class POTranslator
         public String state;
         public String zip;
     }
-    
+
+    /**
+     * A type to capture item information from the client.
+     */
     public static class Item
     {
         public Item() {}
@@ -38,6 +50,20 @@ public class POTranslator
     }
 
     /**
+     * A web service operation to receive an order submission request. This 
+     * method receives raw values and wraps them in XML to return to the client.
+     * 
+     * The sections within @jws:parameter-xml and @jws:return-xml annotations
+     * below are XML maps -- special markup designed to reshape XML between
+     * the shapes known to this operation and the shapes known to the client.
+     * Here, both the incoming (parameter) and return maps call out to 
+     * JavaScript in the POMaps.jsx file.
+     * 
+     * For example, incoming XML from the client is sent to a function in
+     * POMaps.jsx, which extracts values and binds them to instances of 
+     * Java types used in this method's arguments. The method's return
+     * value is converted back to XML in a similar way.
+     * 
      * @jws:operation
      * @jws:parameter-xml xml-map::
      *     <purchaseOrder xmlns="http://www.wiley.com/">
@@ -54,11 +80,10 @@ public class POTranslator
     public PurchaseOrder submitOrder(Address shippingAddr, Address billingAddr, String poNumber, Item[] items)
     {
         /* 
-         * Declare a PurchaseOrder variable and add the
-         * data from incoming parameter values to it. Note
-         * that the incoming data has been translated from
-         * the XML message sent by the client. The parameter
-         * XML map, along with the JavaScript function it 
+         * Declare a PurchaseOrder variable and add to it the data from 
+         * incoming parameter values. Note that the incoming data has 
+         * been translated from the XML message sent by the client. 
+         * The parameter XML map, along with the JavaScript function it 
          * calls, has parsed values from the XML message
          * into the Java parameters of this method.
          */
