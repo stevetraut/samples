@@ -8,7 +8,7 @@ This code includes a wrapper web service that does not send callbacks to its cli
 
 Directory | Description
 --------- | -----------
-[`Chapter10` > `ui`](Chapter10/ui) | Contains the client code.
+[`ui`](ui) | Contains the client code.
 
 File | Description
 --------- | -----------
