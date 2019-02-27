@@ -20,11 +20,11 @@ Using the two kits in the Extension Dev Kit, developers could develop custom com
 
 ## jsptagrefdoclet
 
-The ['jsptagrefdoclet'](jsptagrefdoclet) directory contains the source code for a Javadoc doclet to generate reference for custom JSP tags. When I wrote this, there weren't any doc-generating tools that could combine the richness of Javadoc comments in the Java code backing the tags with the tag-and-attributes nature of the tags themselves. This one does that.
+The [`jsptagrefdoclet`](jsptagrefdoclet) directory contains the source code for a Javadoc doclet to generate reference for custom JSP tags. When I wrote this, there weren't any doc-generating tools that could combine the richness of Javadoc comments in the Java code backing the tags with the tag-and-attributes nature of the tags themselves. This one does that.
 
 ## weblogic-workshop-book
 
-The [weblogic-workshop-book](weblogic-workshop-book) directory contains three samples from a book I co-authored in 2003: [WebLogic Workshop: Building Next Generation Web Services Visually](https://www.amazon.com/BEA-WebLogic-Workshop-Building-Generation/dp/076451797X/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1536104874&sr=).
+The [`weblogic-workshop-book`](weblogic-workshop-book) directory contains three samples from a book I co-authored in 2003: [WebLogic Workshop: Building Next Generation Web Services Visually](https://www.amazon.com/BEA-WebLogic-Workshop-Building-Generation/dp/076451797X/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1536104874&sr=).
 
 These samples illustrate (for Workshop developers) how to use J2EE features, write web service client code, and use JavaScript (via E4X) to manipulate XML.
 
@@ -32,4 +32,4 @@ WebLogic Workshop began as an IDE for building SOAP-based web services. These sa
 
 ## xmlbeans
 
-The [xmlbeans](xmlbeans) directory contains code for samples I wrote for the XMLBeans open source project. XMLBeans is a (now deprecated) Java-native way to handle XML, with or without schema.
+The [`xmlbeans`](xmlbeans) directory contains code for samples I wrote for the XMLBeans open source project. XMLBeans is a (now deprecated) Java-native way to handle XML, with or without schema.
