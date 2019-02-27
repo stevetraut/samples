@@ -1,4 +1,4 @@
-# WebLogic Workshop Book Chapter 8 Client Code
+# WebLogic Workshop Book Chapter 10 Client Code
 
 This directory contains the source code for web service clients in JavaServer Pages and Java Swing. These samples illustrate how to write code native to the client technology while supporting WebLogic Workshop's requirements for asynchronous SOAP-based messages.
 

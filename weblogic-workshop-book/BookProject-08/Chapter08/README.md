@@ -6,6 +6,6 @@ OnlineStore.jws contains the web service code, implementing logic to manage a sh
 
 | File | Description |
 | --------- | ----------- |
-| [`CreditCheckControl.ctrl`](CreditCheckControl.ctrl) | . |
-| [`InventoryControl.ctrl`](InventoryControl.ctrl) | . |
-| [`OnlineStore.jws`](OnlineStore.jws) | . |
+| [`CreditCheckControl.ctrl`](CreditCheckControl.ctrl) | An JMS control to communicate with the Java Message Service. |
+| [`InventoryControl.ctrl`](InventoryControl.ctrl) | An EJB control to retrieve inventory from an Enterprise Java Bean. |
+| [`OnlineStore.jws`](OnlineStore.jws) | An online store web service. |
