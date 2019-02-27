@@ -24,10 +24,10 @@ try {
 <h1>Widgets R Us Online Store</h1>
 <h4>Your Shopping Cart</h4>
 <%
-                Item[] catalogItems = storeProxy.viewCart(ch);
-                if (catalogItems.length > 0){
-                    for (int i = 0; i < catalogItems.length; i++){ 
-                        Item currentItem = catalogItems[i];
+  Item[] catalogItems = storeProxy.viewCart(ch);
+  if (catalogItems.length > 0){
+      for (int i = 0; i < catalogItems.length; i++){ 
+          Item currentItem = catalogItems[i];
 %>
 <form method="get" action="removeItem.jsp" name="catalogList">
   <table width="200">
@@ -42,7 +42,7 @@ try {
 </form>
 
   <% 
-                }
+  }
 %>
 <p><a href="checkout.jsp">Check out</a></p> 
   <%

@@ -20,6 +20,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import weblogic.apache.xerces.parsers.DOMParser;
 
+/**
+ * A session EJB to perform a "credit check" when prompted by a message
+ * from the Java Message Service.
+ */
 public class CreditCheck 
 	implements javax.ejb.MessageDrivenBean, javax.jms.MessageListener {
 

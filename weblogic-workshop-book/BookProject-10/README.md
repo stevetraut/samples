@@ -8,4 +8,4 @@ Chapter 10 was called, "Calling Web Services from Outside WebLogic Workshop".
 | --------- | ----------- |
 | [`Chapter10`](Chapter10) | Web service (.jws) and control (.ctrl) files, Java files implementing the web service that clients call. |
 | [`beanSources10`](beanSources10) | Code for EJBs used by the web service. |
-| [`Chapter10` > `ui`](Chapter10/ui) | Client code. |
+| [`Chapter10` > `ui`](Chapter10/ui) | Client code. The two clients here represent the purpose of this sample. |

@@ -48,7 +48,7 @@ try {
 
     /* 
      * Call the "start" method of the web service, officially starting
-     * a conversation. Along with parameter's specified by the 
+     * a conversation. Along with parameters specified by the 
      * method itself, pass the start header so that the service
      * can begin a conversation with the conversation ID specified here.
      */
