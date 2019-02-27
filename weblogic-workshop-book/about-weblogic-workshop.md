@@ -54,7 +54,7 @@ Web services supported asynchronous communication through callbacks. A stateful 
 
 Methods on a web service or control were annotated to indicate which started a conversation, which continued it, and which finished it. When a conversation finished, its ID and state were discarded.
 
-In the following example from [OnlineStore.jws](), the `startShopping` method is annotated to indicate that calls to it start a conversation. State data such as the customer ID and shopping cart contents are maintained through subequent conversational calls to other methods.
+In the following example from [OnlineStore.jws](BookProject-08/Chapter08/OnlineStore.jws), the `startShopping` method is annotated to indicate that calls to it start a conversation. State data such as the customer ID and shopping cart contents are maintained through subequent conversational calls to other methods.
 
 ```java
 /**
@@ -76,7 +76,7 @@ So that developers could transform XML from one shape to another, WebLogic Works
 
 For more complex transformations, you could use JavaScript linked from the map. In JavaScript in a `.jsx` file, you could handle XML through imported Java classes (such as classes generated from schema with XMLBeans) and through an early version of E4X.
 
-For an example, see [POMap.jsx]().
+For an example, see [POMaps.jsx](BookProject-11/Chapter11/POMaps.jsx).
 
 ## File types
 
