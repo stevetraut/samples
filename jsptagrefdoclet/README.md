@@ -1,6 +1,6 @@
 # JspTagDoc doclet
 
-JspTagDoc isn't a sample, per se. It's a tool I wrote where there was a need to create references for large number of custom [JavaServer Pages (JSP)](https://en.wikipedia.org/wiki/JavaServer_Pages) tags. JSP tags are a way to encapsulate functionality for use in JSP files.
+JspTagDoc didn't start out as a sample. It's a tool I wrote where there was a need to create references for a large number of custom [JavaServer Pages (JSP)](https://en.wikipedia.org/wiki/JavaServer_Pages) tags. JSP tags are a way to encapsulate functionality for use in JSP files.
 
 JspTagDoc is a Javadoc doclet that generates documentation for JSP tags. Unlike Javadoc's standard doclet, which generates docs for classes and interfaces, JspTagDoc generates docs that are designed specifically for use with tags. 
 
@@ -73,11 +73,11 @@ In addition to its similarity to standard API-oriented Javadoc output, this docl
 JspTagDoc combines content from tag library descriptor (TLD) files and content collected from tag classes by Javadoc into a single XML shape, then transforms that XML into HTML output. As with other Javadoc doclets, you use this one by specifying it with the -doclet and -docletpath Javadoc options. In addition, you provide a -tldpath option that tells the doclet where to find TLD files for tag libraries to be documented.
 
 1. The doclet's central class is JspTagDoc. After evaluating command-line options and initializing taglets (ConfigurationJspTagDoc), the doclet begins by binding the TLD files to XMLBeans types generated from schema. 
-1. It then copies information from these types into a new XML shape that is bound to types generated from another schema (TaglibHandler* classes). This generates one XML document for each JSP tag and function. 
-1. When information from all of the TLD files has been collected, the doclet uses information in the new XML to locate tag classes and attribute accessor methods from among the classes known to Javadoc.
-1. Where supporting classes are found, it copies information collected by Javadoc into the XML that already includes TLD information (using JavadocHandler). The doclet adds the completed XML for each JSP tag and function to a summary XML document.
-1. Along the way, several utility classes are used to keep track of all the JSP tags known to the current run (these are JspTagContext, JspTagDetail, and Linker). These are used to create links and to provide information needed by taglets (in the org.apache.beehive.netui.tools.doclet.taglets package).
-1. When the XML has been generated, the doclet optionally transforms it to HTML (using JspTagDocTransformer). Again, it generates one file for each tag and function, along with several summary-style files.
+2. It then copies information from these types into a new XML shape that is bound to types generated from another schema (TaglibHandler* classes). This generates one XML document for each JSP tag and function. 
+3. When information from all of the TLD files has been collected, the doclet uses information in the new XML to locate tag classes and attribute accessor methods from among the classes known to Javadoc.
+4. Where supporting classes are found, it copies information collected by Javadoc into the XML that already includes TLD information (using JavadocHandler). The doclet adds the completed XML for each JSP tag and function to a summary XML document.
+5. Along the way, several utility classes are used to keep track of all the JSP tags known to the current run (these are JspTagContext, JspTagDetail, and Linker). These are used to create links and to provide information needed by taglets (in the org.apache.beehive.netui.tools.doclet.taglets package).
+6. When the XML has been generated, the doclet optionally transforms it to HTML (using JspTagDocTransformer). Again, it generates one file for each tag and function, along with several summary-style files.
 
 (Note on generating docs from TLD content only. This is a little tricky because Javadoc expects a doclet to always be using some path to Java source for content. When your JspTagDoc run will not include Java sources, specify a Java source path that has no Java source files. The doclet always requires a -tldpath option pointing to TLD files.)
 
