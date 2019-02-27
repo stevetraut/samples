@@ -10,7 +10,7 @@ In the IDE's design UI, a client application was represented on the left, a back
 
 The core of a WebLogic Workshop web service was a file with a .jws extension (for Java web service). The Java code in a .jws file implemented logic that should execute when a web service operation was invoked. If the web service included communication with backend resources, those resources could be represented in code as calls to methods of a control.
 
-The [OnlineStore.jws]() web service implements a simple store service, with logic to handle a catalog and shopping cart, along with calls out to the Java Message Service for a credit check and to a database for inventory tracking.
+The [OnlineStore.jws](BookProject-08/Chapter08/OnlineStore.jws) web service implements a simple store service, with logic to handle a catalog and shopping cart, along with calls out to the Java Message Service for a credit check and to a database for inventory tracking.
 
 ## Controls to encapsulate functionality
 
@@ -18,15 +18,15 @@ As with controls in Visual Basic (the world from which WebLogic Workshop designe
 
 In code, the design-time artifact for a control was a Java interface with a .ctrl extension. A developer set properties on the control, and the properties were coded as annotations on the interface and its methods. From web service code, the developer called control methods to access its functionality.
 
-You could also build your own controls. Your custom control was built from a Java interface, such as [CustomerData.java]() and a class that implemented the interface, such as [CustomerDataImpl.jcs]().
+You could also build your own controls. Your custom control was built from a Java interface, such as [CustomerData.java](../extension-dev-kit/ControlDevKit/ControlFeatures/propEditor/CustomerData.java) and a class that implemented the interface, such as [CustomerDataImpl.jcs](../extension-dev-kit/ControlDevKit/ControlFeatures/propEditor/CustomerDataImpl.jcs).
 
 ## Annotations to represent properties
 
 WebLogic Workshop introduced its own annotations to capture metadata used to configure web services and interactions with backend resources. 
 
-In the following example from [CustomerDataTest.jws](), the `@common:operation` annotation signals that the `getCustName` method is a web service operation.
+In the following example from [CustomerDataTest.jws](../extension-dev-kit/ControlDevKit/ControlTest/featuresTests/CustomerDataTest.jws), the `@common:operation` annotation signals that the `getCustName` method is a web service operation.
 
-```
+```java
 /**
  * Returns the customers name.
  * 
@@ -40,7 +40,7 @@ public String getCustName()
 
 Below, the `@common:control` annotation signals that the `thisCustomer` variable points to a control. The `@jc:customer-db` annotation specifies a value for the customer-id attribute. Both the annotation and the attribute are defined in [CustomerData-tags.xml]().
 
-```
+```java
 /**
  * @common:control
  * @jc:customer-db customer-id="987659"
@@ -83,8 +83,8 @@ For an example, see [POMap.jsx]().
 Most of the code in these samples is Java that implemented web service logic. In WebLogic Workshop, each web service artifact had a file extension that signaled the file's role in the project.
 
 File extension | Type | Description
---------- | -----------
-.jws | Java class | Web service implementation file. 
+-------------- | ---- | -----------
+.jws | Java class | Web service implementation file.
 .ctrl | Java interface | The file design-time file generated from a control. A .crtl file gives a web service developer a way to set properties on a control.
 .jcs| Java class | A control implementation file. A custom control includes a .jcs file for implementation and a .java file for the control interface.
 .java| Java control interface | Though a .java file can be what it usually is in the Java world. in WebLogic Workshop it can specifically be the source interface for a Java control. A .jcs file is the control implementation file.
