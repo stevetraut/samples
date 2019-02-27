@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Design View, then click the ... for the customer-id attribute.
  */
 public class CustomerDataTest implements com.bea.jws.WebService
-{ 
+{
 
     /**
      * @common:control
