@@ -4,8 +4,12 @@ import weblogic.jws.control.JMSControl;
 import java.io.Serializable; 
 
 /** 
- *   @jws:jms type="queue" send-jndi-name="credit.requestQ" receive-jndi-name="credit.ratingQ" 
- *   connection-factory-jndi-name="weblogic.jws.jms.QueueConnectionFactory" 
+ * An interface to represent the inventory EJB control. This provides
+ * a way for you to configure the control for specific EJB 
+ * properties, such as the JNDI name of the bean.
+ * 
+ * @jws:jms type="queue" send-jndi-name="credit.requestQ" receive-jndi-name="credit.ratingQ" 
+ * connection-factory-jndi-name="weblogic.jws.jms.QueueConnectionFactory" 
  */ 
 public interface CreditCheckControl extends JMSControl 
 { 
@@ -43,9 +47,9 @@ public interface CreditCheckControl extends JMSControl
 
 
     /** 
-     * If your control specifies receive-jndi-name, that is your JWS expects to receive messages 
-     * from this control, you will need to implement callback handlers. 
-     * There are 2 ways to do this. 
+     * If your control specifies receive-jndi-name (that is, your JWS expects to receive messages 
+     * from this control) you will need to implement callback handlers. 
+     *
      * If the incoming message is in the form of XML, and you would like to use XML maps 
      * to extract values from it, you need to define a Callback interface in this file as 
      * follows. 

@@ -8,6 +8,5 @@ import com.onlinestore.item.Item;
 /* See InventoryBean.java for the logic of this EJB. */
 public interface InventoryRemote extends javax.ejb.EJBObject {
 
-    public Item[] listItems()
-        throws RemoteException;
+    public Item[] listItems() throws RemoteException;
 }

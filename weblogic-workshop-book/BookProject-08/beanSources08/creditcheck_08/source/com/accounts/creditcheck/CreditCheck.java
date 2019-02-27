@@ -20,8 +20,15 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import weblogic.apache.xerces.parsers.DOMParser;
 
-public class CreditCheck 
-	implements javax.ejb.MessageDrivenBean, javax.jms.MessageListener {
+/**
+ * Represents credit check functionality that receives requests via the Java
+ * Message Service (JMS). This EJB merely supports communication with JMS. In
+ * that communication, the OnlineStore.jws sample web service uses its
+ * CreditCheckControl.ctrl JMS control to send a request to JMS, JMS forwards
+ * the message to this EJB. This EJB processes the request, then sends the
+ * response to JMS, which forwards it to the sample web service.
+ */
+public class CreditCheck implements javax.ejb.MessageDrivenBean, javax.jms.MessageListener {
 
 	// A constant to hold the name of the queue for sending a response.
 	public final static String REPLY_QUEUE = "credit.ratingQ";
@@ -33,17 +40,25 @@ public class CreditCheck
 	Context jndiContext;
 
 	public void setMessageDrivenContext(MessageDrivenContext mdctx) {
-        	ejbContext = mdctx;
+		ejbContext = mdctx;
 	}
 
-	public void ejbCreate(){}
+	public void ejbCreate() {
+	}
 
+	/*
+	 * Receives a credit check request message from JMS and extracts the customer's
+	 * purchase total from the incoming XML. The total is compared with available
+	 * credit (always $20.00), then this code sends a response back to JMS for
+	 * forwarding to the client.
+	 * 
+	 */
 	public void onMessage(Message message) {
 		try {
 			System.out.println("CreditCheck: Request message received.");
 
 			// Get the message and parse its contents as XML.
-			TextMessage requestMsg = (TextMessage)message;
+			TextMessage requestMsg = (TextMessage) message;
 			StringReader readerXML = new StringReader(requestMsg.getText());
 			System.out.println("CreditCheck: Request message extracted.");
 			DOMParser parser = new DOMParser();
@@ -62,45 +77,42 @@ public class CreditCheck
 			String id = requestMsg.getStringProperty("applicantID");
 			System.out.println("CreditCheck: Request message prop: id: " + id);
 
-			/* 
-			 * Find out whether the applicant is approved, and put the approval
-			 * value into a variable for use in the response message.
+			/*
+			 * Find out whether the applicant is approved, and put the approval value into a
+			 * variable for use in the response message.
 			 */
 			boolean isApproved = true;
-			if ( totalPurchase > 20.0 ) {
+			if (totalPurchase > 20.0) {
 				isApproved = false;
 			}
 
 			// Set up a JMS resource for sending a response message.
 			jndiContext = new InitialContext();
-			Queue replyQueue = (Queue)jndiContext.lookup(REPLY_QUEUE);
-			QueueConnectionFactory factory = (QueueConnectionFactory)jndiContext.lookup
-				(QUEUE_CONNECTION_FACTORY);
+			Queue replyQueue = (Queue) jndiContext.lookup(REPLY_QUEUE);
+			QueueConnectionFactory factory = (QueueConnectionFactory) jndiContext.lookup(QUEUE_CONNECTION_FACTORY);
 			QueueConnection connect = factory.createQueueConnection();
 			QueueSession session = connect.createQueueSession(true, 0);
-			QueueSender sender = session.createSender(replyQueue);		
+			QueueSender sender = session.createSender(replyQueue);
 
 			/*
-			  * Create a string whose value is XML containing values to return to
-			  * the web service. The XML here must be in the form expected by the
-			  * XML map on the JMS control.
-			  */
-			String messageXML = "<rating_response>" +
-				"<is_approved>" + isApproved + "</is_approved>" +
-				"</rating_response>";
-				
+			 * Create a string whose value is XML containing values to return to the web
+			 * service. The XML here must be in the form expected by the XML map on the JMS
+			 * control.
+			 */
+			String messageXML = "<rating_response>" + "<is_approved>" + isApproved + "</is_approved>"
+					+ "</rating_response>";
+
 			// Create the response message, giving it the XML as a payload.
 			TextMessage replyMsg = session.createTextMessage(messageXML);
 
-			/* 
-			  * Set the property that will be extracted by the JMS control's 
-			  * property XML map.
-			  */
+			/*
+			 * Set the property that will be extracted by the JMS control's property XML
+			 * map.
+			 */
 			replyMsg.setStringProperty("applicantID", id);
 
-			/* 
-			 * Set the response message's JMSCorrelationID to that of the received
-			 * message.
+			/*
+			 * Set the response message's JMSCorrelationID to that of the received message.
 			 */
 			replyMsg.setJMSCorrelationID(message.getJMSCorrelationID());
 			sender.send(replyMsg);
@@ -111,16 +123,20 @@ public class CreditCheck
 			session.commit();
 			connect.close();
 
-        	} catch(Exception e) {
-        		System.out.println("CreditCheck: Exception reading message: " + e);
-            		throw new EJBException(e);
-        	}
+		} catch (Exception e) {
+			System.out.println("CreditCheck: Exception reading message: " + e);
+			throw new EJBException(e);
+		}
 	}
 
-	public void ejbRemove(){
-        	try {
-        		jndiContext.close();
+	/**
+	 * Removes this EJB when the work is finished.
+	 */
+	public void ejbRemove() {
+		try {
+			jndiContext.close();
 			ejbContext = null;
-		} catch(NamingException ne) { /* nothing here */ }
+		} catch (NamingException ne) {
+			/* nothing here */ }
 	}
 }
