@@ -1,5 +1,7 @@
 # Samples
 
+[index samples by language, deliverable]
+
 This repository contains sample code connected with projects I've participated in. 
 
 Generally, the code in these directories is "for display purposes only". That is, it is intended to be a view-only snapshot -- I haven't included the context and peripheral files needed for the code to run.
@@ -18,6 +20,10 @@ The [`extension-dev-kit`](extension-dev-kit) directory contains code illustratin
 
 Using the two kits in the Extension Dev Kit, developers could develop custom components with which developers could build server-side apps, or could extend the WebLogic Workshop IDE, which was based on Java Swing.
 
+## jsptagrefdoclet
+
+The ['jsptagrefdoclet'](jsptagrefdoclet) directory contains the source code for a Javadoc doclet to generate reference for custom JSP tags. At the time, there weren't any doc generating tool that could combine the richness of Javadoc comments in the Java code backing the tags with the tag-and-attributes nature of the tags themselves. This one does that.
+
 ## weblogic-workshop
 
 The [`weblogic-workshop`](weblogic-workshop) directory contains three samples from a book I co-authored in 2003: [WebLogic Workshop: Building Next Generation Web Services Visually](https://www.amazon.com/BEA-WebLogic-Workshop-Building-Generation/dp/076451797X/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1536104874&sr=).
@@ -25,3 +31,7 @@ The [`weblogic-workshop`](weblogic-workshop) directory contains three samples fr
 These samples illustrate (for Workshop developers) how to use J2EE features, write web service client code, use JavaScript (via E4X) to manipulate XML.
 
 WebLogic Workshop began as an IDE for building SOAP-based web services. The samples here require WebLogic Workshop 7.1, which is almost surely no longer available.
+
+## xmlbeans
+
+The ['xmlbeans'](xmlbeans) directory contains code for samples I wrote for the XMLBeans open source project. XMLBeans was a Java-native way to handle XML, with or without schema.s
