@@ -1,10 +1,8 @@
 # Samples
 
-[index samples by language, deliverable]
-
 This repository contains sample code connected with projects I've participated in. 
 
-Generally, the code in these directories is "for display purposes only". That is, it is intended to be a view-only snapshot -- I haven't included the context and peripheral files needed for the code to run.
+Generally, the code in these directories is "for display purposes only". That is, it is intended to be a view-only snapshot -- I haven't included the context and peripheral files needed for the code to run. Much of it requires support long-gone resources anyway.
 
 ## api-baas
 
