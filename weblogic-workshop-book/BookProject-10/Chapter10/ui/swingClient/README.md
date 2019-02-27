@@ -6,5 +6,5 @@ For more on WebLogic Workshop-specific conventions used in this code, see the [c
 
 Files | Description
 --------- | -----------
-[`source/storeClient/OnlineStore.java`](source/storeClient/OnlineStore.java) | .
-[`source/storeClient/StoreFrame.java`](source/storeClient/StoreFrame.java) | .
+[`source/storeClient/OnlineStore.java`](source/storeClient/OnlineStore.java) | The root of the user interface.
+[`source/storeClient/StoreFrame.java`](source/storeClient/StoreFrame.java) | Contains most of the logic that builds the user interface and performs actions on behalf of the user.
