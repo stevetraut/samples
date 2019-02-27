@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This schema was generated from the DTD simply to compile into XMLBeans types. -->
+<xs:schema
+    targetNamespace="http://apache.org/beehive/netui/tools/doclet/schema/web-jsptaglibrary_1_2"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ref="http://apache.org/beehive/netui/tools/doclet/schema/web-jsptaglibrary_1_2" elementFormDefault="qualified">
+    <xs:element name="taglib">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tlib-version" type="ref:tlib-versionType"/>
+                <xs:element name="jsp-version" type="ref:jsp-versionType"/>
+                <xs:element name="short-name" type="ref:short-nameType"/>
+                <xs:element name="uri" type="ref:uriType" minOccurs="0"/>
+                <xs:element name="display-name" type="xs:string" minOccurs="0"/>
+                <xs:element name="small-icon" type="xs:string" minOccurs="0"/>
+                <xs:element name="large-icon" type="xs:string" minOccurs="0"/>
+                <xs:element name="description" type="ref:descriptionType" minOccurs="0"/>
+                <xs:element name="validator" type="ref:validatorType" minOccurs="0"/>
+                <xs:element name="listener" type="ref:listenerType" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="tag" type="ref:tagType" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="body-contentType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="tagType">
+        <xs:sequence>
+            <xs:element name="name" type="ref:nameType"/>
+            <xs:element name="tag-class" type="ref:tag-classType"/>
+            <xs:element name="tei-class" type="ref:tei-classType" minOccurs="0"/>
+            <xs:element name="body-content" type="ref:body-contentType" minOccurs="0"/>
+            <xs:element name="display-name" type="xs:string" minOccurs="0"/>
+            <xs:element name="small-icon" type="xs:string" minOccurs="0"/>
+            <xs:element name="large-icon" type="xs:string" minOccurs="0"/>
+            <xs:element name="description" type="ref:descriptionType" minOccurs="0"/>
+            <xs:element name="variable" type="ref:variableType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="attribute" type="ref:attributeType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="example" type="ref:exampleType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="attributeType">
+        <xs:sequence>
+            <xs:element name="name" type="ref:nameType"/>
+            <xs:element name="required" type="ref:requiredType" minOccurs="0"/>
+            <xs:element name="rtexprvalue" type="ref:rtexprvalueType" minOccurs="0"/>
+            <xs:element name="type" type="xs:string" minOccurs="0"/>
+            <xs:element name="description" type="ref:descriptionType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="descriptionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="exampleType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="init-paramType">
+        <xs:sequence>
+            <xs:element name="param-name" type="ref:param-nameType"/>
+            <xs:element name="param-value" type="ref:param-valueType"/>
+            <xs:element name="description" type="ref:descriptionType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="jsp-versionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="listenerType">
+        <xs:sequence>
+            <xs:element name="listener-class" type="ref:listener-classType"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="listener-classType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="nameType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="param-nameType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="param-valueType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="requiredType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="rtexprvalueType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="short-nameType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="tag-classType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="tei-classType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="tlib-versionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="uriType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="validatorType">
+        <xs:sequence>
+            <xs:element name="validator-class" type="xs:string"/>
+            <xs:element name="init-param" type="ref:init-paramType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="description" type="ref:descriptionType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="variableType">
+        <xs:sequence>
+            <xs:choice>
+                <xs:element name="name-given" type="xs:string"/>
+                <xs:element name="name-from-attribute" type="xs:string"/>
+            </xs:choice>
+            <xs:element name="variable-class" type="xs:string" minOccurs="0"/>
+            <xs:element name="declare" type="xs:string" minOccurs="0"/>
+            <xs:element name="scope" type="xs:string" minOccurs="0"/>
+            <xs:element name="description" type="ref:descriptionType" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

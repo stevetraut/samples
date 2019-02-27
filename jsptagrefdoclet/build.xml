@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<project name="JspTagRefDoclet" default="usage" basedir=".">
+
+	<property name="xbean.jar" value="lib/apache-xbean.jar"/>
+	<property name="jsr173_api.jar" value="lib/jsr173_1.0_api.jar"/>
+	<property name="jsptagrefschema.jar" value="lib/jsptagrefschema.jar"/>
+	<property name="javadoc.dir" value="javadoc"/>
+	<property name="build.dir" value="build"/>
+
+    <path id="xmlbeans.path">
+        	<pathelement location="${xbean.jar}"/>
+        	<pathelement location="${jsr173_api.jar}"/>
+    		<pathelement path="${build.dir}/classes"/>
+    </path>
+	
+	<path id="doclet.path">
+    		<pathelement path="${xmlbeans.path}"/>
+	</path>
+
+    <taskdef name="xmlbean"
+        classname="org.apache.xmlbeans.impl.tool.XMLBean"
+        classpathref="xmlbeans.path"/>
+
+	<target name="usage">
+		<echo message="================================================================================"/>
+		<echo message="|                                  Usage                                       |"/>
+		<echo message="================================================================================"/>
+		<echo message="build - Cleans, builds, and jars the doclet.    "/>
+		<echo message="clean - Deletes the build directory.    "/>
+		<echo message="jar.doclet - Assembles doclet classes and resources into a jar.    "/>
+		<echo message="compile.doclet - Compiles doclet Java source code.    "/>
+		<echo message="compile.schemas.to.classes - Runs scomp to generate classes from schema.    "/>
+		<echo message="compile.schemas.to.jar - Runs scomp to generate a jar from schema.    "/>
+		<echo message="generate.javadoc - Generates Javadoc for this doclet.    "/>
+		<echo message="usage - Prints this message.    "/>
+		<echo message="================================================================================"/>
+		<echo message="|                                                                              |"/>
+		<echo message="================================================================================"/>
+	</target>
+	
+	<target name="clean" description="Deletes the build directory.">
+		<delete dir="${build.dir}"/>
+	</target>
+	
+	<target name="build" description="Builds and jars the doclet.">
+		<antcall target="clean"/>
+		<antcall target="compile.schemas.to.classes"/>
+		<antcall target="compile.doclet"/>
+		<antcall target="jar.doclet"/>
+	</target>
+	
+    <target name="compile.doclet">
+        <mkdir dir="${build.dir}/classes"/>
+        <javac srcdir="src"
+            destdir="${build.dir}/classes"
+            classpathref="xmlbeans.path"
+            debug="on"
+            source="1.4"
+            />
+    </target>
+
+    <target name="jar.doclet" description="Assembles classes and related files into a jar.">
+        <delete file="${build.dir}/lib/jsptagrefdoclet.jar"/>
+		<mkdir dir="${build.dir}/lib"/>
+        <jar destfile="${build.dir}/lib/jsptagrefdoclet.jar">
+            <fileset dir=".">
+                <include name="xslt/*.xslt"/>
+                <include name="resources/*.html"/>
+                <include name="resources/*.css"/>
+            </fileset>
+            <fileset dir="${build.dir}/classes"/>
+        </jar>
+    </target>
+	
+	<target name="compile.schemas.to.classes" description="Run scomp on the schemas, but don't jar the result.">
+		<xmlbean 
+			schema="schema" 
+			classgendir="${build.dir}/classes" 
+			classpathref="xmlbeans.path">
+		</xmlbean>
+	</target>
+	
+	<target name="compile.schemas.to.jar" description="Run scomp on the schemas and jar the result.">
+		<xmlbean 
+			schema="schema" 
+			destfile="${build.dir}/lib/jsptagrefschema.jar" 
+			classpathref="xmlbeans.path"/>
+	</target>
+	
+	<target name="generate.javadoc" description="Generates Javadoc for the doclet.">
+		<delete dir="docs/javadoc"/>
+		<javadoc destdir="docs/javadoc" private="true">
+			<packageset dir="src">
+				<include name="org/apache/beehive/netui/tools/doclet/jsptagref"/>
+				<include name="org/apache/beehive/netui/tools/doclet/taglets"/>
+			</packageset>			
+		</javadoc>
+	</target>
+
+</project>

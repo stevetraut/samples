@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    targetNamespace="http://apache.org/beehive/netui/tools/doclet/schema/web-jsptaglibrary_1_1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ref="http://apache.org/beehive/netui/tools/doclet/schema/web-jsptaglibrary_1_1" elementFormDefault="qualified">
+    <xs:element name="taglib">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="tlibversion" type="ref:tlibversionType"/>
+                <xs:element name="jspversion" type="ref:jspversionType" minOccurs="0"/>
+                <xs:element name="shortname" type="ref:shortnameType"/>
+                <xs:element name="uri" type="ref:uriType" minOccurs="0"/>
+                <xs:element name="info" type="ref:infoType" minOccurs="0"/>
+                <xs:element name="tag" type="ref:tagType" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="bodycontentType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="tagType">
+        <xs:sequence>
+            <xs:element name="name" type="ref:nameType"/>
+            <xs:element name="tagclass" type="ref:tagclassType"/>
+            <xs:element name="teiclass" type="ref:teiclassType" minOccurs="0"/>
+            <xs:element name="bodycontent" type="ref:bodycontentType" minOccurs="0"/>
+            <xs:element name="info" type="ref:infoType" minOccurs="0"/>
+            <xs:element name="attribute" type="ref:attributeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="attributeType">
+        <xs:sequence>
+            <xs:element name="name" type="ref:nameType"/>
+            <xs:element name="required" type="ref:requiredType" minOccurs="0"/>
+            <xs:element name="rtexprvalue" type="ref:rtexprvalueType" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    <xs:complexType name="infoType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="jspversionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="nameType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="requiredType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="rtexprvalueType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="shortnameType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="tagclassType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="teiclassType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="tlibversionType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="uriType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+</xs:schema>
