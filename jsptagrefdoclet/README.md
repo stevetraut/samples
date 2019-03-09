@@ -2,62 +2,15 @@
 
 JspTagDoc didn't start out as a sample. It's a tool I wrote where there was a need to create references for a large number of custom [JavaServer Pages (JSP)](https://en.wikipedia.org/wiki/JavaServer_Pages) tags. JSP tags are a way to encapsulate functionality for use in JSP files.
 
-JspTagDoc is a Javadoc doclet that generates documentation for JSP tags. Unlike Javadoc's standard doclet, which generates docs for classes and interfaces, JspTagDoc generates docs that are designed specifically for use with tags. 
+JspTagDoc is a Javadoc doclet that generates documentation for JSP tags. It's designed to generate references for JSP tags and tag attributes, rather than the classes, fields, and methods beneath the tags.
 
-So just as the tags themselves are designed to mask the underlying Java implementation in favor of a declarative model that is better suited for JSP authoring, so JspTagDoc generates docs that mask the underlying API details in favor of tags, attributes and a declarative syntax that is better suited for JSP authors. An underlying assumption in the design and use of JSP tags seems to be that users may or may not be very Java API-savvy; JspTagDoc output is based on the same assumption.
+For example, imagine a `<columns>` JSP tag that renders data from query results. Behind the tag is a Java class `Columns` with Javadoc that results in a reference such as the following:
 
-## So What's the Difference?
+![Columns class reference](images/columns-classref.png)
 
-For a more concrete sense of the difference, take a brief look at the specifics of doclet output while imagining you're a JSP tag user immersed in that (largely) declarative programming model. Looking for information on the `<foo>` tag, which you think will achieve your programming ends, you can find only Javadoc for the Foo class that provides the `<foo>` tag's underlying logic.
+Using this doclet, you can produce a reference more like the following:
 
-What you see there is the `Foo` class hierarchy, maybe something like this:
-
-```
-Object
-  - TagLogic
-    - BarTagLogic
-      - AbstractBarTag
-        - Foo
-```
-
-But the hierarchy is probably irrelevant to use of the <foo> tag. You might also find the list of interfaces implemented by the Foo class, as well as any subclasses of the Foo class -- both of which are also irrelevant.
-
-The syntax line you see is Java syntax, which is also unuseful:
-
-```
-public class Foo 
-	extends AbstractBarTag
-```
-
-The description you get is for the Foo class, which needn't say much about the <foo> tag -- in fact, it may well give a fair amount of information about the Foo class's role in the API, or implementation information, rather than  meaty specifics about the <foo> tag's use. 
-
-Your "See Also" links probably take you to other classes in the API, some of which may not correspond to JSP tags at all, or which are in parts of the API that aren't even available to you as a JSP tag user.
-
-For the Foo class, you'll get lists of fields whose connection to the <foo> tag may take some work on your part to make. You'll get a mention of a constructor, which will probably be irrelevant. You'll get reference for methods that seem to correspond to the <foo> tags attributes -- if you remove the accessor prefix, such as "get", "set", "is", or "has" -- but only if those methods are implemented in the current class; if the method is inherited, you'll have to go elsewhere.
-
-Perhaps most annoying of all, you might get reference for methods that seem to have no connection to your <foo> tag at all (unless you've written JSP tags yourself, which is unlikely): doAfterBody, doEndTag, doStartTag, and so on.
-
-If the Foo class's Javadoc has been written just so, you might be able to come away with something useful. If you're diligent, you might be able to figure out that the setBiff method has information about the <foo> tag's biff attribute that you can use. But you'll have had to sift through all of the other irrelevant information to get there -- and bend your brain around the job of smaking the translation from JSP to Java. You'll have effectively unimplemented the <foo> tag, defeating a goal of implementing <foo> as a JSP tag.
-
-On the other hand, documentation tailored to help you be successful with the <foo> tag might include at least the following:
-
-- The name of the <foo> tag as a title.
-- Tag syntax in the declarative style, perhaps like this:
-
-	```xml
-	<baz:foo
-		biff="biffDescriptor"
-		bam="bamDescriptor"
-		[optionalBlammo="blammoDescriptor"] 
-		isBoffo="true | false"/>
-	```
-
-- A description specifically about the <foo> tag. This might include information about nested tags, or required parent tags.
-- Descriptions for each of the tag's attributes as attributes, rather than class methods.
-- "See Also" links to take you to related tags in the library, or to other docs relevant to your task at hand: programming with the <foo> tag in the declarative JSP style.
-- Content presented in a style that complements Javadoc for classes (similar navigation and presentation conventions, for example); if you do move between the two types of references, the transition won't be jarring.
-
-These last are the reference characteristics that JspTagDoc attempts to incorporate.
+![Columns tag reference](images/columns-jsptagref.png)
 
 ## Doclet Features
 
@@ -70,7 +23,7 @@ In addition to its similarity to standard API-oriented Javadoc output, this docl
 
 ## How the Doclet Works
 
-JspTagDoc combines content from tag library descriptor (TLD) files and content collected from tag classes by Javadoc into a single XML shape, then transforms that XML into HTML output. As with other Javadoc doclets, you use this one by specifying it with the -doclet and -docletpath Javadoc options. In addition, you provide a -tldpath option that tells the doclet where to find TLD files for tag libraries to be documented.
+JspTagDoc combines content from tag library descriptor (TLD) files and content collected from tag classes by Javadoc into a single XML shape, then transforms that XML into HTML output.
 
 1. The doclet's central class is JspTagDoc. After evaluating command-line options and initializing taglets (ConfigurationJspTagDoc), the doclet begins by binding the TLD files to XMLBeans types generated from schema. 
 2. It then copies information from these types into a new XML shape that is bound to types generated from another schema (TaglibHandler* classes). This generates one XML document for each JSP tag and function. 
@@ -78,8 +31,6 @@ JspTagDoc combines content from tag library descriptor (TLD) files and content c
 4. Where supporting classes are found, it copies information collected by Javadoc into the XML that already includes TLD information (using JavadocHandler). The doclet adds the completed XML for each JSP tag and function to a summary XML document.
 5. Along the way, several utility classes are used to keep track of all the JSP tags known to the current run (these are JspTagContext, JspTagDetail, and Linker). These are used to create links and to provide information needed by taglets (in the org.apache.beehive.netui.tools.doclet.taglets package).
 6. When the XML has been generated, the doclet optionally transforms it to HTML (using JspTagDocTransformer). Again, it generates one file for each tag and function, along with several summary-style files.
-
-(Note on generating docs from TLD content only. This is a little tricky because Javadoc expects a doclet to always be using some path to Java source for content. When your JspTagDoc run will not include Java sources, specify a Java source path that has no Java source files. The doclet always requires a -tldpath option pointing to TLD files.)
 
 ## Note About the Schemas
 
