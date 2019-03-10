@@ -16,4 +16,4 @@ File | Description
 ---- | -----------
 [index.html](index.html) | HTML for the sample's user interface.
 [index.js](js/index.js) | Contains all of the developer-authored JavaScript code that represents the app's logic. This is with index.html for presentation.
-[index.js](js/apigee.js) | Contains code for the API BaaS JavaScript SDK.
+[apigee.js](js/apigee.js) | Contains code for the API BaaS JavaScript SDK.
