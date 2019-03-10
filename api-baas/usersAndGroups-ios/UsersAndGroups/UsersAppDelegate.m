@@ -9,12 +9,16 @@
 
 @implementation UsersAppDelegate
 
+/**
+ * Called to initialize the SDK client with the names of the organization 
+ * and application created in API BaaS by the application developer.
+ */
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //Replace 'AppDelegate' with the name of your app delegate class to instantiate it
     UsersAppDelegate *appDelegate = (UsersAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-#warning Change orgName and appName before running
+    #warning Change orgName and appName before running
     NSString *orgName = @"YOUR_ORG";
     NSString *appName = @"YOUR_APP";
     

@@ -1,10 +1,5 @@
 # Control Test
 
-This folder primarily holds Java web service (JWS) files for illustrating samples in the [ControlFeatures](../ControlFeatures) folder.
+This folder holds Java web service (JWS) files for illustrating samples in the [ControlFeatures](../ControlFeatures) folder. 
 
-Folder | Description
------- | -----------
-[WEB-INF](WEB-INF) | Supporting files for WebLogic Workshop and WebLogic Server.
-[featuresTests](featuresTests) | A set of JWS files that use the sample controls.
-[resources](resources) | Supporting files for WebLogic Workshop and WebLogic Server.
-
+The control features samples illustrated how to augment WebLogic Workshop's functionality for developing web services. The test samples exercise the enhancements brought by the features samples.
