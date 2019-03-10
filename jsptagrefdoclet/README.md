@@ -6,11 +6,11 @@ JspTagDoc is a Javadoc doclet designed to generate references for JSP tags and t
 
 For example, imagine a `<columns>` JSP tag that renders data from query results. Behind the tag is a Java class `Columns` whose Javadoc comments result in a reference such as the following:
 
-![Columns class reference](images/columns-classref.png)
+> ![Columns class reference](images/columns-classref.png)
 
 Using the JspTagDoc doclet, you can produce a reference more like the following:
 
-![Columns tag reference](images/columns-jsptagref.png)
+> ![Columns tag reference](images/columns-jsptagref.png)
 
 ## Doclet Features
 
