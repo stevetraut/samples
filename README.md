@@ -6,15 +6,15 @@ Generally, the code in these directories is "for display purposes only". That is
 
 ## api-baas
 
-The [api-baas](api-baas) directory contains three samples, each illustrating roughly the same functionality in the Apigee API BaaS product ([slated for EOL](https://docs.apigee.com/release/notes/api-baas-eol) in June 2019). Each sample is coded to use a different API BaaS SDK supporting a mobile platform -- Android, IOS, and JavaScript.
+The [api-baas](api-baas) directory contains three samples, each illustrating roughly the same functionality in the Apigee API BaaS product ([declared at end-of-life](https://docs.apigee.com/release/notes/api-baas-eol) in June 2019). Each sample is coded to use a different API BaaS SDK supporting a mobile platform -- Android, IOS, and JavaScript.
 
-API BaaS is backend-as-a-service designed to support mobile apps. It includes a NoSQL data store and other services such as push notifications and geolocation. The samples were designed to illustrate how you could use API BaaS as a backend by incorporating the SDKs into your mobile apps.
+API BaaS was a backend-as-a-service designed to support mobile apps. It includd a NoSQL data store and other services such as push notifications and geolocation. The samples were designed to illustrate how developers could use API BaaS as a backend by incorporating the SDKs into their mobile apps.
 
-These samples are snapshots from code I wrote in 2013; they each have later versions running on later SDKs (though it has been years since they receive any attention). A form of API BaaS lives on as the open source project [Usergrid](http://usergrid.apache.org/), from which API BaaS originated.
+These samples are snapshots from code I wrote in 2013. A form of API BaaS lives on as the open source project [Usergrid](http://usergrid.apache.org/), from which API BaaS originated.
 
 ## extension-dev-kit
 
-The [`extension-dev-kit`](extension-dev-kit) directory contains code illustrating how to extend the WebLogic Workshop development environment. WebLogic Workshop was an IDE that began as a cockpit for building SOAP web services, and later supported building other kinds of J2EE components.
+The [`extension-dev-kit`](extension-dev-kit) directory contains code illustrating how to extend the WebLogic Workshop development environment. WebLogic Workshop was an IDE that began as a cockpit for building SOAP web services, then later supported building other kinds of J2EE components.
 
 Using the two kits in the Extension Dev Kit, developers could develop custom components with which developers could build server-side apps, or could extend the WebLogic Workshop IDE, which was based on [Java Swing](https://en.wikipedia.org/wiki/Swing_(Java)).
 
@@ -26,10 +26,10 @@ The [`jsptagrefdoclet`](jsptagrefdoclet) directory contains the source code for 
 
 The [`weblogic-workshop-book`](weblogic-workshop-book) directory contains three samples from a book I co-authored in 2003: [WebLogic Workshop: Building Next Generation Web Services Visually](https://www.amazon.com/BEA-WebLogic-Workshop-Building-Generation/dp/076451797X/ref=tmm_pap_swatch_0?_encoding=UTF8&qid=1536104874&sr=).
 
-These samples illustrate (for Workshop developers) how to use J2EE features, write web service client code, and use JavaScript (via E4X) to manipulate XML.
+These samples illustrate (for Workshop developers) how to use J2EE features, write web service client code, and use JavaScript (via [E4X](https://en.wikipedia.org/wiki/ECMAScript_for_XML) to manipulate XML.
 
-WebLogic Workshop began as an IDE for building SOAP-based web services. These samples in their complete form would require WebLogic Workshop 7.1, which is almost surely no longer available.
+These samples in their complete form would require WebLogic Workshop 7.1, which is almost surely no longer available.
 
 ## xmlbeans
 
-The [`xmlbeans`](xmlbeans) directory contains code for samples I wrote for the XMLBeans open source project. XMLBeans is a (now deprecated) Java-native way to handle XML, with or without schema.
+The [`xmlbeans`](xmlbeans) directory contains code for samples I wrote for the XMLBeans open source project. XMLBeans is a (now deprecated) Java-native way to handle XML.
