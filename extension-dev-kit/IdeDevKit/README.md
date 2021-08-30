@@ -1,6 +1,6 @@
 # IDE Dev Kit Samples
 
-These samples were included in an SDK to support developers who were augmenting the WebLogic Workshop IDE. (For my overview of the IDE, see [About WebLogic Workshop](../weblogic-workshop-book/about-weblogic-workshop.md)).
+These samples were included in an SDK to support developers who were augmenting the WebLogic Workshop IDE. (For my overview of the IDE, see [About WebLogic Workshop](../../weblogic-workshop-book/about-weblogic-workshop.md)).
 
 Each sample illustrates how to use a different part of the SDK API. 
 
