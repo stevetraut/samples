@@ -10,7 +10,7 @@ The [api-baas](api-baas) directory contains three samples, each illustrating rou
 
 API BaaS was a backend-as-a-service designed to support mobile apps. It included a NoSQL data store and other services such as support for push notifications and geolocation. The samples were designed to illustrate how developers could use API BaaS as a backend by incorporating the SDKs into their mobile apps.
 
-These samples are snapshots from code I wrote in 2013. A form of API BaaS lives on as the open source project [Usergrid](http://usergrid.apache.org/), from which API BaaS originated.
+These samples are snapshots from code I wrote in 2013. A form of API BaaS is still visible in the Apache Attice as the open source project [Usergrid](https://attic.apache.org/projects/usergrid.html), from which API BaaS originated.
 
 ## Samples for extending an IDE
 
